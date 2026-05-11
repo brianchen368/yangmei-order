@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🍱 午餐點餐系統</title>
+<title>🍱 洋美點餐系統</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -85,7 +85,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
 <div class="wrap" style="padding-top:48px;max-width:420px">
   <div style="text-align:center;margin-bottom:36px">
     <div style="font-size:64px;margin-bottom:10px">🍱</div>
-    <div style="font-size:24px;font-weight:900">午餐點餐系統</div>
+    <div style="font-size:24px;font-weight:900">洋美點餐系統</div>
     <div style="color:var(--muted);font-size:13px;margin-top:4px" id="login-date"></div>
   </div>
 
@@ -129,7 +129,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
 <div class="wrap" style="padding-bottom:160px">
   <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;margin-bottom:20px">
     <div>
-      <div style="font-size:18px;font-weight:900">🍱 午餐點餐</div>
+      <div style="font-size:18px;font-weight:900">🍱 洋美點餐</div>
       <div style="font-size:12px;color:var(--muted);margin-top:2px" id="emp-meta"></div>
     </div>
     <button onclick="logout()" style="background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:13px;font-family:var(--font);border-radius:10px;padding:6px 14px">登出</button>
@@ -244,11 +244,15 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
         <input class="inp" id="rest-name" placeholder="例：王記便當">
         <label class="lbl">菜單圖片（供員工參考）</label>
         <input type="file" id="rest-img-file" accept="image/*" style="display:none" onchange="handleRestImg(event)">
+        <input type="file" id="rest-img-camera" accept="image/*" capture="environment" style="display:none" onchange="handleRestImg(event)">
         <div id="rest-img-box">
-          <div class="upbox" onclick="document.getElementById('rest-img-file').click()">
-            <div style="font-size:36px;margin-bottom:8px">📷</div>
-            <div style="font-weight:600;font-size:14px">點擊上傳菜單圖片</div>
-            <div style="color:var(--muted);font-size:12px;margin-top:2px">JPG、PNG、HEIC 均可</div>
+          <div class="upbox" style="padding:20px">
+            <div style="font-size:36px;margin-bottom:10px">📷</div>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+              <button type="button" onclick="document.getElementById('rest-img-camera').click()" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">📸 拍照</button>
+              <button type="button" onclick="document.getElementById('rest-img-file').click()" style="background:transparent;color:var(--p);border:2px solid var(--p);border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">🖼️ 選擇圖片</button>
+            </div>
+            <div style="color:var(--muted);font-size:12px;margin-top:10px">JPG、PNG、HEIC 均可</div>
           </div>
         </div>
         <button class="btn" onclick="saveRest()">💾 儲存餐廳</button>
@@ -259,6 +263,16 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
           <button id="ai-scan-btn" onclick="aiScanMenu()" style="background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border:none;border-radius:12px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">
             🤖 AI 自動掃描品項
           </button>
+        </div>
+        <!-- API Key input for AI scan -->
+        <div id="ai-key-box" style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:12px;padding:12px 14px;margin-bottom:12px">
+          <div style="font-size:12px;font-weight:700;color:#16A34A;margin-bottom:2px">🔑 Google Gemini API Key（免費・無需信用卡）</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px">👉 <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#16A34A;font-weight:700">點此免費取得 Gemini API Key →</a>　登入 Google 帳號即可，完全免費</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="password" id="ai-api-key" class="inp" placeholder="AIza..." style="margin-top:0;flex:1;font-size:13px;border-color:#86EFAC">
+            <button onclick="toggleApiKeyVis()" id="ai-key-vis-btn" style="background:none;border:1px solid #86EFAC;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;color:#16A34A;white-space:nowrap;font-family:var(--font)">顯示</button>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px">Key 僅存在記憶體，不會被儲存。</div>
         </div>
         <!-- AI scanning state -->
         <div id="ai-scanning" style="display:none;text-align:center;padding:20px 0">
@@ -643,10 +657,13 @@ function renderRestImgBox(){
       <button onclick="removeRestImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:var(--font)">✕ 移除</button>
     </div>`;
   }else{
-    box.innerHTML=`<div class="upbox" onclick="document.getElementById('rest-img-file').click()">
-      <div style="font-size:36px;margin-bottom:8px">📷</div>
-      <div style="font-weight:600;font-size:14px">點擊上傳菜單圖片</div>
-      <div style="color:var(--muted);font-size:12px;margin-top:2px">JPG、PNG、HEIC 均可</div>
+    box.innerHTML=`<div class="upbox" style="padding:20px">
+      <div style="font-size:36px;margin-bottom:10px">📷</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button type="button" onclick="document.getElementById('rest-img-camera').click()" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">📸 拍照</button>
+        <button type="button" onclick="document.getElementById('rest-img-file').click()" style="background:transparent;color:var(--p);border:2px solid var(--p);border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🖼️ 選擇圖片</button>
+      </div>
+      <div style="color:var(--muted);font-size:12px;margin-top:10px">JPG、PNG、HEIC 均可</div>
     </div>`;
   }
 }
@@ -655,8 +672,16 @@ function removeRestImg(){editImgB64=null;renderRestImgBox();document.getElementB
 
 // ── AI 掃描菜單 ──
 let aiPendingItems=[];
+function toggleApiKeyVis(){
+  const inp=document.getElementById('ai-api-key');
+  const btn=document.getElementById('ai-key-vis-btn');
+  if(inp.type==='password'){inp.type='text';btn.textContent='隱藏'}
+  else{inp.type='password';btn.textContent='顯示'}
+}
 async function aiScanMenu(){
   if(!editImgB64){alert('請先上傳菜單圖片！');return}
+  const apiKey=(document.getElementById('ai-api-key').value||'').trim();
+  if(!apiKey){alert('請先輸入 Gemini API Key！\n\n到 https://aistudio.google.com/app/apikey 免費取得');document.getElementById('ai-api-key').focus();return}
   // 顯示掃描中狀態
   document.getElementById('ai-scan-btn').disabled=true;
   document.getElementById('ai-scanning').style.display='block';
@@ -666,33 +691,33 @@ async function aiScanMenu(){
   const bar=document.getElementById('ai-progress-bar');
   const timer=setInterval(()=>{prog=Math.min(prog+Math.random()*8,88);bar.style.width=prog+'%'},300);
   try{
-    // 取出 base64 data（去掉 data:image/...;base64, 前綴）
     const b64=editImgB64.split(',')[1];
     const mType=editImgB64.split(';')[0].split(':')[1];
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{
-          role:'user',
-          content:[
-            {type:'image',source:{type:'base64',media_type:mType,data:b64}},
-            {type:'text',text:`請仔細看這張餐廳菜單圖片，把所有可以點的「品項名稱」和「價格」整理出來。
+        contents:[{parts:[
+          {inline_data:{mime_type:mType,data:b64}},
+          {text:`請仔細看這張餐廳菜單圖片，把所有可以點的「品項名稱」和「價格」整理出來。
 只回傳 JSON 格式，格式如下，不要有任何其他文字：
 {"items":[{"name":"品項名稱","price":數字},{"name":"品項名稱","price":數字}]}
 價格只填數字（整數），如果看不到價格就填 0。
 品項名稱用繁體中文。
 不要包含「飯」「湯麵」「撈麵」這種主食類別標題，只要具體品項。`}
-          ]
-        }]
+        ]}]
       })
     });
     clearInterval(timer);bar.style.width='100%';
-    if(!resp.ok)throw new Error('API 錯誤 '+resp.status);
+    if(!resp.ok){
+      const errData=await resp.json().catch(()=>({}));
+      const msg=errData?.error?.message||'未知錯誤';
+      const status=resp.status;
+      throw new Error(`[${status}] ${msg}`);
+    }
     const data=await resp.json();
-    const txt=data.content.filter(c=>c.type==='text').map(c=>c.text).join('');
+    // Gemini 回應格式：data.candidates[0].content.parts[0].text
+    const txt=data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
     // 清理可能的 markdown fences
     const clean=txt.replace(/```json|```/g,'').trim();
     const parsed=JSON.parse(clean);
@@ -886,7 +911,7 @@ function exportOrders(){
   const grandTotal=Object.values(totals).reduce((s,v)=>s+v.rev,0);
   const keys=Object.keys(totals).sort((a,b)=>totals[b].qty-totals[a].qty);
   const html=`<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
-<title>午餐訂單 ${TODAY}</title>
+<title>洋美點餐 訂單 ${TODAY}</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;max-width:860px;margin:0 auto;padding:32px;color:#1A1714;font-size:15px}
@@ -903,7 +928,7 @@ td{padding:12px 16px;border-bottom:1px solid #EEE9E4}
 .print-btn{background:#D4500A;color:#fff;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:700;font-family:inherit;margin-bottom:32px}
 @media print{.print-btn{display:none}body{padding:16px}}
 </style></head><body>
-<h1>🍱 午餐訂單彙整</h1>
+<h1>🍱 洋美點餐 訂單彙整</h1>
 <div class="meta">📅 日期：${TODAY}　　🏪 餐廳：${todayRest?.name||'未知'}　　👥 共 ${orders.length} 人點餐</div>
 <button class="print-btn" onclick="window.print()">🖨️ 列印 / 儲存為 PDF</button>
 <h2>📋 彙整明細 <span style="font-size:13px;color:#7A6F68;font-weight:400">（用於向餐廳下單）</span></h2>
