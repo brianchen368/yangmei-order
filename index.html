@@ -16,80 +16,64 @@
 body{font-family:var(--font);background:var(--bg);min-height:100vh;color:var(--text)}
 .wrap{max-width:520px;margin:0 auto;padding:20px 16px 160px}
 .card{background:var(--card);border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:0 2px 20px rgba(0,0,0,.07)}
-/* Buttons */
 .btn{display:block;width:100%;padding:14px 20px;border-radius:14px;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;border:2px solid var(--p);background:var(--p);color:#fff;margin-top:12px;text-align:center;transition:opacity .15s}
 .btn:hover{opacity:.88}.btn:disabled{opacity:.38;cursor:not-allowed}
-.btn-out{background:transparent;color:var(--p)}
-.btn-out:hover{background:var(--pl)}
+.btn-out{background:transparent;color:var(--p)}.btn-out:hover{background:var(--pl)}
 .btn-g{background:var(--success);border-color:var(--success)}
 .btn-r{background:var(--danger);border-color:var(--danger)}
-.btn-r-out{background:transparent;color:var(--danger);border-color:var(--danger)}
 .btn-sm{width:auto;display:inline-block;padding:8px 18px;font-size:13px;margin-top:0}
-/* Inputs */
 .inp{width:100%;padding:12px 16px;border-radius:12px;border:2px solid var(--border);font-size:15px;font-family:var(--font);outline:none;background:#FAFAF9;margin-top:6px;transition:border .15s}
 .inp:focus{border-color:var(--p);background:#fff}
 select.inp{appearance:none;-webkit-appearance:none;cursor:pointer}
 label.lbl{font-size:13px;font-weight:700;color:var(--muted);display:block;margin-top:16px}
-/* Pages */
 .page{display:none}.page.active{display:block}
-/* Back */
 .back{background:none;border:none;cursor:pointer;font-size:17px;color:var(--muted);padding:0 0 16px;font-family:var(--font)}
 .back:hover{color:var(--text)}
-/* Bottom nav */
 #bot-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:#fff;border-top:1px solid var(--border);display:none;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
 .nav-btn{flex:1;padding:10px 4px 14px;border:none;cursor:pointer;font-weight:700;font-size:11px;font-family:var(--font);background:transparent;color:var(--muted);border-top:3px solid transparent;line-height:1.5;transition:all .15s}
 .nav-btn.active{color:var(--p);border-top-color:var(--p)}
-/* Bottom cart bar */
 #cart-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:#fff;border-top:1px solid var(--border);padding:14px 16px;display:none;z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
-/* Menu item */
 .mi{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:14px 18px;margin-bottom:10px;border:2px solid transparent;box-shadow:0 1px 8px rgba(0,0,0,.05);transition:border .2s}
 .mi.sel{border-color:var(--p);background:#FFFBF8}
-/* Counter */
 .cnt-btn{width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .cnt-minus{background:#fff;border:2px solid var(--p);color:var(--p)}.cnt-plus{background:var(--p);border:none;color:#fff}
-/* Tags */
 .tag{display:inline-block;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700}
 .tag-p{background:var(--p);color:#fff}.tag-pl{background:var(--pl);color:var(--p)}.tag-ok{background:#EAFAF1;color:var(--success)}
-/* Table */
 table{width:100%;border-collapse:collapse;font-size:14px}
 th{background:var(--pl);color:var(--p);padding:10px 12px;text-align:left;font-weight:700;border-bottom:2px solid #FCDBB8}
 td{padding:10px 12px;border-bottom:1px solid var(--border)}
 .r{text-align:right}
-/* Upload area */
-.upbox{border:2px dashed var(--border);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;background:#FAFAF9;transition:all .2s}
-.upbox:hover{border-color:var(--p);background:var(--pl)}
-/* Restaurant card */
+.upbox{border:2px dashed var(--border);border-radius:14px;padding:28px 20px;text-align:center;background:#FAFAF9;transition:all .2s}
 .rc{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
 .rc:last-child{border-bottom:none}
-/* Chips */
-.chip{display:inline-block;background:var(--pl);color:var(--p);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;margin:4px}
-.chip:hover{background:#FFE4CC}
-/* Error */
 .err{color:var(--danger);font-size:13px;margin-top:8px}
-/* Stat row */
 .sr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
 .sr:last-child{border-bottom:none}
-/* Alert box */
 .abox{background:#FFF8F5;border:1px solid #FCDBB8;border-radius:12px;padding:14px 16px;margin-top:10px}
-/* Order person block */
 .ob{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 .ob:last-child{border-bottom:none}
+/* Loading overlay */
+#loading{position:fixed;inset:0;background:rgba(247,244,240,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px}
+.spinner{width:44px;height:44px;border:4px solid var(--border);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════
-  🔐 LOGIN PAGE
-═══════════════════════════════ -->
-<div id="pg-login" class="page active">
+<!-- Loading -->
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="font-weight:700;color:var(--muted);font-size:14px">連線中…</div>
+</div>
+
+<!-- LOGIN -->
+<div id="pg-login" class="page">
 <div class="wrap" style="padding-top:48px;max-width:420px">
   <div style="text-align:center;margin-bottom:36px">
     <div style="font-size:64px;margin-bottom:10px">🍱</div>
     <div style="font-size:24px;font-weight:900">洋美點餐系統</div>
     <div style="color:var(--muted);font-size:13px;margin-top:4px" id="login-date"></div>
   </div>
-
-  <!-- Login form -->
   <div class="card" id="login-form">
     <div style="font-weight:900;font-size:18px;margin-bottom:16px">登入</div>
     <label class="lbl">帳號</label>
@@ -99,16 +83,12 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     <div class="err" id="l-err" style="display:none"></div>
     <button class="btn" onclick="doLogin()">登入</button>
     <div style="text-align:center;margin-top:14px">
-      <button onclick="showReg(true)" style="background:none;border:none;color:var(--p);font-size:13px;cursor:pointer;font-family:var(--font);font-weight:600">
-        還沒有帳號？點此自行註冊
-      </button>
+      <button onclick="showReg(true)" style="background:none;border:none;color:var(--p);font-size:13px;cursor:pointer;font-family:var(--font);font-weight:600">還沒有帳號？點此自行註冊</button>
     </div>
     <div style="margin-top:14px;padding:12px 14px;background:var(--pl);border-radius:10px;font-size:12px;color:var(--muted)">
       💡 預設管理員　帳號：<strong>admin</strong>　密碼：<strong>1234</strong>
     </div>
   </div>
-
-  <!-- Register form -->
   <div class="card" id="reg-form" style="display:none">
     <div style="font-weight:900;font-size:18px;margin-bottom:16px">員工自行註冊</div>
     <label class="lbl">帳號（建議用中文姓名）</label>
@@ -122,9 +102,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
 </div>
 </div>
 
-<!-- ═══════════════════════════════
-  🍽️ EMPLOYEE PAGE
-═══════════════════════════════ -->
+<!-- EMPLOYEE -->
 <div id="pg-emp" class="page">
 <div class="wrap" style="padding-bottom:160px">
   <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;margin-bottom:20px">
@@ -134,15 +112,11 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     </div>
     <button onclick="logout()" style="background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:13px;font-family:var(--font);border-radius:10px;padding:6px 14px">登出</button>
   </div>
-
-  <!-- No daily set -->
   <div id="emp-no-daily" class="card" style="text-align:center;padding:48px 20px;display:none">
     <div style="font-size:40px;margin-bottom:12px">⏳</div>
     <div style="font-weight:700;font-size:16px;margin-bottom:8px">今日尚未設定餐廳</div>
     <p style="color:var(--muted);font-size:13px">請等待管理員設定今日餐廳後再來點餐</p>
   </div>
-
-  <!-- Daily content -->
   <div id="emp-daily-content">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -154,22 +128,16 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
         <span class="tag tag-ok" id="emp-done-badge" style="display:none">已點餐 ✓</span>
       </div>
     </div>
-
-    <!-- Menu image -->
     <div id="emp-img-wrap" style="display:none;margin-bottom:16px">
       <div style="border-radius:18px;overflow:hidden;box-shadow:0 3px 20px rgba(0,0,0,.10)">
         <img id="emp-menu-img" src="" alt="菜單" style="width:100%;display:block;max-height:500px;object-fit:contain;background:#F5F3F0">
       </div>
-      <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:6px">↑ 今日菜單圖片，請對照下方選取品項</p>
+      <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:6px">↑ 今日菜單圖片</p>
     </div>
-
-    <!-- Items -->
     <div id="emp-items"></div>
     <div id="emp-no-items" class="card" style="text-align:center;padding:32px;color:var(--muted);display:none">管理員尚未設定可點品項</div>
   </div>
 </div>
-
-<!-- Cart bar -->
 <div id="cart-bar">
   <div id="cart-info" style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;display:none">
     <span style="color:var(--muted)" id="cart-count-txt"></span>
@@ -179,9 +147,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
 </div>
 </div>
 
-<!-- ═══════════════════════════════
-  ✅ DONE PAGE
-═══════════════════════════════ -->
+<!-- DONE -->
 <div id="pg-done" class="page">
 <div class="wrap" style="text-align:center;padding-top:64px">
   <div style="font-size:72px;margin-bottom:16px">🎉</div>
@@ -193,9 +159,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
 </div>
 </div>
 
-<!-- ═══════════════════════════════
-  ⚙️ ADMIN PAGE
-═══════════════════════════════ -->
+<!-- ADMIN -->
 <div id="pg-admin" class="page">
 <div class="wrap">
   <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;margin-bottom:20px">
@@ -203,15 +167,13 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     <button onclick="logout()" style="background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:13px;font-family:var(--font);border-radius:10px;padding:6px 14px">登出</button>
   </div>
 
-  <!-- ── 今日設定 ── -->
+  <!-- 今日設定 -->
   <div id="tab-today">
     <div class="card">
       <div style="font-weight:900;font-size:17px;margin-bottom:4px">今日設定</div>
       <div style="color:var(--muted);font-size:12px;margin-bottom:4px" id="adm-today-date"></div>
       <label class="lbl">選擇今日餐廳</label>
-      <select class="inp" id="sel-rest">
-        <option value="">── 請選擇餐廳 ──</option>
-      </select>
+      <select class="inp" id="sel-rest"><option value="">── 請選擇餐廳 ──</option></select>
       <div class="abox" id="no-rest-warn" style="display:none">
         <p style="color:var(--danger);font-size:13px;margin-bottom:10px">⚠️ 尚未建立任何餐廳，請先新增</p>
         <button class="btn" onclick="goTab('rests')" style="margin-top:0">🏪 立即前往新增餐廳 →</button>
@@ -225,9 +187,8 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- ── 餐廳管理 ── -->
+  <!-- 餐廳管理 -->
   <div id="tab-rests" style="display:none">
-    <!-- Restaurant list -->
     <div id="rest-list-view">
       <button class="btn" onclick="openNewRest()" style="margin-bottom:14px">＋ 新增餐廳</button>
       <div class="card">
@@ -235,7 +196,6 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
         <div id="rest-list-inner"><div style="text-align:center;color:var(--muted);padding:24px 0;font-size:14px">尚未建立任何餐廳</div></div>
       </div>
     </div>
-    <!-- Restaurant edit -->
     <div id="rest-edit-view" style="display:none">
       <button class="back" onclick="closeRestEdit()">← 返回餐廳列表</button>
       <div class="card">
@@ -249,8 +209,8 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
           <div class="upbox" style="padding:20px">
             <div style="font-size:36px;margin-bottom:10px">📷</div>
             <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-              <button type="button" onclick="document.getElementById('rest-img-camera').click()" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">📸 拍照</button>
-              <button type="button" onclick="document.getElementById('rest-img-file').click()" style="background:transparent;color:var(--p);border:2px solid var(--p);border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">🖼️ 選擇圖片</button>
+              <button type="button" onclick="document.getElementById('rest-img-camera').click()" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">📸 拍照</button>
+              <button type="button" onclick="document.getElementById('rest-img-file').click()" style="background:transparent;color:var(--p);border:2px solid var(--p);border-radius:12px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font)">🖼️ 選擇圖片</button>
             </div>
             <div style="color:var(--muted);font-size:12px;margin-top:10px">JPG、PNG、HEIC 均可</div>
           </div>
@@ -260,21 +220,17 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
           <div style="font-weight:900;font-size:17px">可點品項</div>
-          <button id="ai-scan-btn" onclick="aiScanMenu()" style="background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border:none;border-radius:12px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px">
-            🤖 AI 自動掃描品項
-          </button>
+          <button id="ai-scan-btn" onclick="aiScanMenu()" style="background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border:none;border-radius:12px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font)">🤖 AI 自動掃描品項</button>
         </div>
-        <!-- API Key input for AI scan -->
         <div id="ai-key-box" style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:12px;padding:12px 14px;margin-bottom:12px">
           <div style="font-size:12px;font-weight:700;color:#16A34A;margin-bottom:2px">🔑 Google Gemini API Key（免費・無需信用卡）</div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:8px">👉 <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#16A34A;font-weight:700">點此免費取得 Gemini API Key →</a>　登入 Google 帳號即可，完全免費</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px">👉 <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#16A34A;font-weight:700">點此免費取得 →</a>　登入 Google 帳號即可</div>
           <div style="display:flex;gap:8px;align-items:center">
             <input type="password" id="ai-api-key" class="inp" placeholder="AIza..." style="margin-top:0;flex:1;font-size:13px;border-color:#86EFAC">
             <button onclick="toggleApiKeyVis()" id="ai-key-vis-btn" style="background:none;border:1px solid #86EFAC;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;color:#16A34A;white-space:nowrap;font-family:var(--font)">顯示</button>
           </div>
           <div style="font-size:11px;color:var(--muted);margin-top:6px">Key 僅存在記憶體，不會被儲存。</div>
         </div>
-        <!-- AI scanning state -->
         <div id="ai-scanning" style="display:none;text-align:center;padding:20px 0">
           <div style="font-size:32px;margin-bottom:8px">🤖</div>
           <div style="font-weight:700;color:#4F46E5;font-size:15px">AI 正在辨識菜單圖片…</div>
@@ -283,9 +239,8 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
             <div id="ai-progress-bar" style="height:100%;background:linear-gradient(90deg,#7C3AED,#4F46E5);border-radius:10px;width:0%;transition:width 0.4s"></div>
           </div>
         </div>
-        <!-- AI result preview -->
         <div id="ai-result-box" style="display:none;background:#F5F3FF;border:1px solid #C4B5FD;border-radius:14px;padding:14px;margin-bottom:14px">
-          <div style="font-weight:700;color:#4F46E5;margin-bottom:10px;font-size:14px">🤖 AI 掃描結果　<span style="font-weight:400;color:var(--muted);font-size:12px">請確認後再加入，或手動修改</span></div>
+          <div style="font-weight:700;color:#4F46E5;margin-bottom:10px;font-size:14px">🤖 AI 掃描結果　<span style="font-weight:400;color:var(--muted);font-size:12px">請確認後再加入</span></div>
           <div id="ai-result-items"></div>
           <button onclick="applyAiItems()" style="background:#4F46E5;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);width:100%;margin-top:10px">✅ 全部加入品項</button>
         </div>
@@ -299,7 +254,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- ── 帳號管理 ── -->
+  <!-- 帳號管理 -->
   <div id="tab-accounts" style="display:none">
     <div class="card">
       <div style="font-weight:900;font-size:17px;margin-bottom:14px">新增帳號</div>
@@ -320,7 +275,7 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- ── 訂單統計 ── -->
+  <!-- 訂單統計 -->
   <div id="tab-orders" style="display:none">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
@@ -333,12 +288,12 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
       <div style="font-weight:900;font-size:17px;margin-bottom:14px">個人訂單明細</div>
       <div id="order-personal"></div>
     </div>
-    <button class="btn btn-g" id="export-btn" onclick="exportOrders()" style="display:none">📋 導出今日訂單（可列印 / 存 PDF）</button>
+    <button class="btn btn-g" id="export-btn" onclick="exportOrders()" style="display:none">📋 導出今日訂單</button>
   </div>
 </div>
 </div>
 
-<!-- Bottom Nav (admin) -->
+<!-- Bottom Nav -->
 <div id="bot-nav">
   <button class="nav-btn active" onclick="goTab('today')"><div>📋</div><div>今日設定</div></button>
   <button class="nav-btn" onclick="goTab('rests')"><div>🏪</div><div>餐廳管理</div></button>
@@ -346,255 +301,334 @@ td{padding:10px 12px;border-bottom:1px solid var(--border)}
   <button class="nav-btn" onclick="goTab('orders')"><div>📊</div><div>訂單統計</div></button>
 </div>
 
-<script>
-// ══════════════════════════════════════════════
-// DATA LAYER (localStorage)
-// ══════════════════════════════════════════════
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, update, remove, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// ── Firebase 設定 ──
+const firebaseConfig = {
+  apiKey: "AIzaSyAUmfbeyslTRaQuN-5VoCJuStLDIQO7UH8",
+  authDomain: "yangmei-order.firebaseapp.com",
+  databaseURL: "https://yangmei-order-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "yangmei-order",
+  storageBucket: "yangmei-order.firebasestorage.app",
+  messagingSenderId: "488791994357",
+  appId: "1:488791994357:web:437ab1c287dc0edb987abc"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ── 工具函數 ──
 const TODAY = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'2-digit',day:'2-digit'});
 const UID = ()=>Math.random().toString(36).slice(2,9);
-function ld(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d}catch{return d}}
-function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+const esc = s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const dbRef = path => ref(db, path);
+const dbGet = async path => { const s = await get(dbRef(path)); return s.exists() ? s.val() : null; };
+const dbSet = (path, val) => set(dbRef(path), val);
+const dbUpdate = (path, val) => update(dbRef(path), val);
+const dbRemove = path => remove(dbRef(path));
 
-let users=ld('lo3-users',[]);
-let rests=ld('lo3-rests',[]);
-let orders=ld(`lo3-orders-${TODAY}`,[]);
-let daily=ld(`lo3-daily-${TODAY}`,null);
-let me=null;
-let cart={};
-let editRestId=null;
-let editItems=[];
-let editImgB64=null;
+let me = null;
+let cart = {};
+let editRestId = null;
+let editItems = [];
+let editImgB64 = null;
+let allRests = {};
+let allUsers = {};
+let todayDaily = null;
+let todayOrders = {};
+let unsubOrders = null;
 
-// Init default admin
-if(!users.length){users=[{id:UID(),username:'admin',password:'1234',role:'admin'}];sv('lo3-users',users)}
+// ── 初始化 ──
+async function init() {
+  document.getElementById('login-date').textContent = TODAY;
+  document.getElementById('adm-today-date').textContent = TODAY;
 
-// ══════════════════════════════════════════════
-// PAGE ROUTING
-// ══════════════════════════════════════════════
-function showPage(id,scrollTop=true){
+  // 建立預設 admin
+  const adminSnap = await dbGet('users/admin');
+  if (!adminSnap) {
+    await dbSet('users/admin', { id:'admin', username:'admin', password:'1234', role:'admin' });
+  }
+
+  // 載入基礎資料
+  await loadUsers();
+  await loadRests();
+
+  hideLoading();
+  showPage('pg-login');
+  setTimeout(()=>document.getElementById('l-user').focus(), 100);
+}
+
+function hideLoading() { document.getElementById('loading').style.display = 'none'; }
+function showLoading() { document.getElementById('loading').style.display = 'flex'; }
+
+// ── 資料載入 ──
+async function loadUsers() {
+  const snap = await dbGet('users');
+  allUsers = snap || {};
+}
+async function loadRests() {
+  const snap = await dbGet('rests');
+  allRests = snap || {};
+}
+async function loadDaily() {
+  const dateKey = TODAY.replace(/\//g,'-');
+  todayDaily = await dbGet(`daily/${dateKey}`);
+}
+async function loadOrders() {
+  const dateKey = TODAY.replace(/\//g,'-');
+  const snap = await dbGet(`orders/${dateKey}`);
+  todayOrders = snap || {};
+}
+
+// ── 頁面切換 ──
+function showPage(id, scrollTop=true) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById('bot-nav').style.display='none';
-  document.getElementById('cart-bar').style.display='none';
-  if(scrollTop)window.scrollTo(0,0);
+  document.getElementById('bot-nav').style.display = 'none';
+  document.getElementById('cart-bar').style.display = 'none';
+  if (scrollTop) window.scrollTo(0,0);
 }
 
-// ══════════════════════════════════════════════
-// LOGIN
-// ══════════════════════════════════════════════
-document.getElementById('login-date').textContent=TODAY;
-function showReg(show){
-  document.getElementById('login-form').style.display=show?'none':'block';
-  document.getElementById('reg-form').style.display=show?'block':'none';
+// ── 登入 ──
+function showReg(show) {
+  document.getElementById('login-form').style.display = show?'none':'block';
+  document.getElementById('reg-form').style.display = show?'block':'none';
 }
-function doLogin(){
-  const u=document.getElementById('l-user').value.trim();
-  const p=document.getElementById('l-pass').value;
-  const found=users.find(x=>x.username===u&&x.password===p);
-  if(!found){
-    document.getElementById('l-err').textContent='⚠️ 帳號或密碼錯誤';
-    document.getElementById('l-err').style.display='block';
-    document.getElementById('l-pass').value='';return;
+
+async function doLogin() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value;
+  const errEl = document.getElementById('l-err');
+  showLoading();
+  await loadUsers();
+  const found = Object.values(allUsers).find(x=>x.username===u && x.password===p);
+  hideLoading();
+  if (!found) {
+    errEl.textContent = '⚠️ 帳號或密碼錯誤';
+    errEl.style.display = 'block';
+    document.getElementById('l-pass').value = '';
+    return;
   }
-  me=found;
-  document.getElementById('l-user').value='';
-  document.getElementById('l-pass').value='';
-  document.getElementById('l-err').style.display='none';
-  if(me.role==='admin'){openAdmin()}else{openEmp()}
+  me = found;
+  errEl.style.display = 'none';
+  document.getElementById('l-user').value = '';
+  document.getElementById('l-pass').value = '';
+  if (me.role === 'admin') { openAdmin(); } else { openEmp(); }
 }
-function doRegister(){
-  const u=document.getElementById('r-user').value.trim();
-  const p=document.getElementById('r-pass').value;
-  const el=document.getElementById('r-err');
-  if(!u){el.textContent='⚠️ 請輸入帳號';el.style.display='block';return}
-  if(!p){el.textContent='⚠️ 請輸入密碼';el.style.display='block';return}
-  if(users.find(x=>x.username===u)){el.textContent='⚠️ 此帳號已存在';el.style.display='block';return}
-  const nu={id:UID(),username:u,password:p,role:'user'};
-  users=[...users,nu];sv('lo3-users',users);
-  el.style.display='none';
-  document.getElementById('r-user').value='';
-  document.getElementById('r-pass').value='';
+
+async function doRegister() {
+  const u = document.getElementById('r-user').value.trim();
+  const p = document.getElementById('r-pass').value;
+  const el = document.getElementById('r-err');
+  if (!u) { el.textContent='⚠️ 請輸入帳號'; el.style.display='block'; return; }
+  if (!p) { el.textContent='⚠️ 請輸入密碼'; el.style.display='block'; return; }
+  showLoading();
+  await loadUsers();
+  if (Object.values(allUsers).find(x=>x.username===u)) {
+    hideLoading(); el.textContent='⚠️ 此帳號已存在'; el.style.display='block'; return;
+  }
+  const id = UID();
+  await dbSet(`users/${id}`, { id, username:u, password:p, role:'user' });
+  hideLoading();
+  el.style.display = 'none';
+  document.getElementById('r-user').value = '';
+  document.getElementById('r-pass').value = '';
   showReg(false);
-  document.getElementById('l-user').value=u;
+  document.getElementById('l-user').value = u;
   alert('✅ 註冊成功！請輸入密碼登入');
 }
-function logout(){
-  me=null;cart={};
-  document.getElementById('bot-nav').style.display='none';
-  document.getElementById('cart-bar').style.display='none';
+
+function logout() {
+  me = null; cart = {};
+  if (unsubOrders) { unsubOrders(); unsubOrders = null; }
+  document.getElementById('bot-nav').style.display = 'none';
+  document.getElementById('cart-bar').style.display = 'none';
   showPage('pg-login');
-  setTimeout(()=>document.getElementById('l-user').focus(),100);
+  setTimeout(()=>document.getElementById('l-user').focus(), 100);
 }
 
-// ══════════════════════════════════════════════
-// EMPLOYEE
-// ══════════════════════════════════════════════
-function openEmp(){
+// ── 員工頁 ──
+async function openEmp() {
   showPage('pg-emp');
-  document.getElementById('emp-meta').textContent=`👤 ${me.username}　${TODAY}`;
-  const cartBar=document.getElementById('cart-bar');
-  cartBar.style.display='block';
-  const todayRest=rests.find(r=>r.id===daily?.restId);
+  document.getElementById('emp-meta').textContent = `👤 ${me.username}　${TODAY}`;
+  document.getElementById('cart-bar').style.display = 'block';
 
-  if(!daily||!todayRest){
-    document.getElementById('emp-no-daily').style.display='block';
-    document.getElementById('emp-daily-content').style.display='none';
-    cartBar.style.display='none';return;
+  await loadDaily();
+  await loadRests();
+
+  const dateKey = TODAY.replace(/\//g,'-');
+  const todayRest = todayDaily ? allRests[todayDaily.restId] : null;
+
+  if (!todayDaily || !todayRest) {
+    document.getElementById('emp-no-daily').style.display = 'block';
+    document.getElementById('emp-daily-content').style.display = 'none';
+    document.getElementById('cart-bar').style.display = 'none';
+    return;
   }
-  document.getElementById('emp-no-daily').style.display='none';
-  document.getElementById('emp-daily-content').style.display='block';
-  document.getElementById('emp-rest-name').textContent=todayRest.name;
-  document.getElementById('emp-deadline-txt').textContent=daily.deadline?`🕐 截止時間 ${daily.deadline}`:'';
+  document.getElementById('emp-no-daily').style.display = 'none';
+  document.getElementById('emp-daily-content').style.display = 'block';
+  document.getElementById('emp-rest-name').textContent = todayRest.name;
+  document.getElementById('emp-deadline-txt').textContent = todayDaily.deadline ? `🕐 截止時間 ${todayDaily.deadline}` : '';
 
-  // Load menu image
-  const imgData=localStorage.getItem(`lo3-img-${todayRest.id}`);
-  const imgWrap=document.getElementById('emp-img-wrap');
-  if(imgData){document.getElementById('emp-menu-img').src=imgData;imgWrap.style.display='block'}
-  else{imgWrap.style.display='none'}
+  // 菜單圖片
+  const imgData = await dbGet(`images/${todayDaily.restId}`);
+  const imgWrap = document.getElementById('emp-img-wrap');
+  if (imgData) { document.getElementById('emp-menu-img').src = imgData; imgWrap.style.display = 'block'; }
+  else { imgWrap.style.display = 'none'; }
 
-  // Check if already ordered
-  const myOrd=orders.find(o=>o.userId===me.id);
-  if(myOrd){cart={};myOrd.items.forEach(i=>{cart[i.id]=i.qty});
-    document.getElementById('emp-done-badge').style.display='inline-block';
-  }else{
-    document.getElementById('emp-done-badge').style.display='none';
-  }
-
-  // Render items
-  const el=document.getElementById('emp-items');
-  const ni=document.getElementById('emp-no-items');
-  const items=todayRest.items||[];
-  if(!items.length){el.innerHTML='';ni.style.display='block'}
-  else{
-    ni.style.display='none';
-    el.innerHTML=items.map(item=>`
-      <div class="mi${(cart[item.id]||0)>0?' sel':''}" id="mi-${item.id}">
-        <div style="flex:1">
-          <div style="font-weight:700;font-size:16px">${esc(item.name)}</div>
-          <div style="color:var(--p);font-weight:700;font-size:14px;margin-top:3px">${item.price>0?'$'+item.price:'洽詢'}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <button class="cnt-btn cnt-minus" onclick="chgCart('${item.id}',-1)">−</button>
-          <span style="width:26px;text-align:center;font-weight:700;font-size:17px" id="cn-${item.id}">${cart[item.id]||0}</span>
-          <button class="cnt-btn cnt-plus" onclick="chgCart('${item.id}',1)">+</button>
-        </div>
-      </div>`).join('');
-  }
-  updateCartUI();
+  // 即時監聽訂單
+  if (unsubOrders) unsubOrders();
+  unsubOrders = onValue(dbRef(`orders/${dateKey}/${me.id}`), snap => {
+    const myOrd = snap.val();
+    cart = {};
+    if (myOrd && myOrd.items) {
+      myOrd.items.forEach(i => { cart[i.id] = i.qty; });
+      document.getElementById('emp-done-badge').style.display = 'inline-block';
+    } else {
+      document.getElementById('emp-done-badge').style.display = 'none';
+    }
+    renderEmpItems(todayRest.items || []);
+    updateCartUI(todayRest.items || []);
+  });
 }
 
-function chgCart(id,delta){
-  cart[id]=Math.max(0,(cart[id]||0)+delta);
-  if(!cart[id])delete cart[id];
-  const cn=document.getElementById('cn-'+id);
-  const mi=document.getElementById('mi-'+id);
-  if(cn)cn.textContent=cart[id]||0;
-  if(mi)mi.classList.toggle('sel',(cart[id]||0)>0);
-  updateCartUI();
+function renderEmpItems(items) {
+  const el = document.getElementById('emp-items');
+  const ni = document.getElementById('emp-no-items');
+  if (!items.length) { el.innerHTML=''; ni.style.display='block'; return; }
+  ni.style.display = 'none';
+  el.innerHTML = items.map(item=>`
+    <div class="mi${(cart[item.id]||0)>0?' sel':''}" id="mi-${item.id}">
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:16px">${esc(item.name)}</div>
+        <div style="color:var(--p);font-weight:700;font-size:14px;margin-top:3px">${item.price>0?'$'+item.price:'洽詢'}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="cnt-btn cnt-minus" onclick="chgCart('${item.id}',-1)">−</button>
+        <span style="width:26px;text-align:center;font-weight:700;font-size:17px" id="cn-${item.id}">${cart[item.id]||0}</span>
+        <button class="cnt-btn cnt-plus" onclick="chgCart('${item.id}',1)">+</button>
+      </div>
+    </div>`).join('');
 }
 
-function updateCartUI(){
-  const todayRest=rests.find(r=>r.id===daily?.restId);
-  if(!todayRest)return;
-  const items=todayRest.items||[];
-  const count=Object.values(cart).reduce((s,v)=>s+v,0);
-  const total=Object.entries(cart).reduce((s,[id,q])=>{const it=items.find(i=>i.id===id);return s+(it?it.price*q:0)},0);
-  const ci=document.getElementById('cart-info');
-  const myOrd=orders.find(o=>o.userId===me?.id);
-  if(count>0){
-    ci.style.display='flex';
-    document.getElementById('cart-count-txt').textContent=`已選 ${count} 項`;
-    document.getElementById('cart-total-txt').textContent=total>0?`合計 $${total}`:'';
-  }else{ci.style.display='none'}
-  const btn=document.getElementById('cart-submit-btn');
-  btn.disabled=count===0;
-  btn.textContent=myOrd?'更新訂單 ✓':'確認送出 🎉';
+function chgCart(id, delta) {
+  cart[id] = Math.max(0, (cart[id]||0)+delta);
+  if (!cart[id]) delete cart[id];
+  const cn = document.getElementById('cn-'+id);
+  const mi = document.getElementById('mi-'+id);
+  if (cn) cn.textContent = cart[id]||0;
+  if (mi) mi.classList.toggle('sel', (cart[id]||0)>0);
+  const todayRest = allRests[todayDaily?.restId];
+  if (todayRest) updateCartUI(todayRest.items||[]);
 }
 
-function submitOrder(){
-  const todayRest=rests.find(r=>r.id===daily?.restId);
-  if(!todayRest)return;
-  const items=todayRest.items||[];
-  const cartItems=Object.entries(cart).filter(([,q])=>q>0).map(([id,qty])=>{
-    const it=items.find(i=>i.id===id);return it?{...it,qty}:null
+function updateCartUI(items) {
+  const count = Object.values(cart).reduce((s,v)=>s+v, 0);
+  const total = Object.entries(cart).reduce((s,[id,q])=>{ const it=items.find(i=>i.id===id); return s+(it?it.price*q:0); }, 0);
+  const ci = document.getElementById('cart-info');
+  if (count > 0) {
+    ci.style.display = 'flex';
+    document.getElementById('cart-count-txt').textContent = `已選 ${count} 項`;
+    document.getElementById('cart-total-txt').textContent = total>0?`合計 $${total}`:'';
+  } else { ci.style.display = 'none'; }
+  const btn = document.getElementById('cart-submit-btn');
+  btn.disabled = count === 0;
+  const myOrd = todayOrders[me?.id];
+  btn.textContent = myOrd ? '更新訂單 ✓' : '確認送出 🎉';
+}
+
+async function submitOrder() {
+  const todayRest = allRests[todayDaily?.restId];
+  if (!todayRest) return;
+  const items = todayRest.items || [];
+  const cartItems = Object.entries(cart).filter(([,q])=>q>0).map(([id,qty])=>{
+    const it = items.find(i=>i.id===id); return it ? {...it,qty} : null;
   }).filter(Boolean);
-  const kept=orders.filter(o=>o.userId!==me.id);
-  const order={id:UID(),userId:me.id,username:me.username,items:cartItems,ts:Date.now()};
-  orders=[...kept,order];sv(`lo3-orders-${TODAY}`,orders);
+  if (!cartItems.length) return;
+
+  const dateKey = TODAY.replace(/\//g,'-');
+  await dbSet(`orders/${dateKey}/${me.id}`, {
+    id: me.id, username: me.username, items: cartItems, ts: Date.now()
+  });
+  await loadOrders();
   renderDone(cartItems);
   showPage('pg-done');
 }
 
-function renderDone(items){
-  document.getElementById('done-name').textContent=`👤 ${me.username} 的今日午餐`;
-  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
-  let html=items.map((item,i)=>`
+function renderDone(items) {
+  document.getElementById('done-name').textContent = `👤 ${me.username} 的今日午餐`;
+  const total = items.reduce((s,i)=>s+i.price*i.qty, 0);
+  let html = items.map((item,i)=>`
     <div style="display:flex;justify-content:space-between;padding:11px 0;${i<items.length-1?'border-bottom:1px solid var(--border)':''}">
       <span style="font-weight:600">${esc(item.name)} × ${item.qty}</span>
       ${item.price>0?`<span style="color:var(--p);font-weight:700">$${item.price*item.qty}</span>`:''}
     </div>`).join('');
-  if(total>0)html+=`<div style="display:flex;justify-content:space-between;padding-top:12px;font-weight:700"><span>總計</span><span style="color:var(--p);font-size:18px">$${total}</span></div>`;
-  document.getElementById('done-detail').innerHTML=html;
+  if (total>0) html += `<div style="display:flex;justify-content:space-between;padding-top:12px;font-weight:700"><span>總計</span><span style="color:var(--p);font-size:18px">$${total}</span></div>`;
+  document.getElementById('done-detail').innerHTML = html;
 }
 
-// ══════════════════════════════════════════════
-// ADMIN
-// ══════════════════════════════════════════════
-function openAdmin(){
+// ── 管理員 ──
+async function openAdmin() {
   showPage('pg-admin');
-  document.getElementById('bot-nav').style.display='flex';
-  document.getElementById('adm-today-date').textContent=TODAY;
+  document.getElementById('bot-nav').style.display = 'flex';
+  await loadDaily();
+  await loadRests();
   renderTodayTab();
 }
 
-// ── Tabs ──
-function goTab(tab){
+function goTab(tab) {
   ['today','rests','accounts','orders'].forEach(t=>{
-    document.getElementById('tab-'+t).style.display=t===tab?'block':'none';
+    document.getElementById('tab-'+t).style.display = t===tab?'block':'none';
   });
   document.querySelectorAll('.nav-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['today','rests','accounts','orders'][i]===tab);
+    b.classList.toggle('active', ['today','rests','accounts','orders'][i]===tab);
   });
   window.scrollTo(0,0);
-  if(tab==='today')renderTodayTab();
-  if(tab==='rests')renderRestList();
-  if(tab==='accounts')renderAccounts();
-  if(tab==='orders')renderOrders();
+  if (tab==='today') renderTodayTab();
+  if (tab==='rests') renderRestList();
+  if (tab==='accounts') renderAccounts();
+  if (tab==='orders') renderOrdersTab();
 }
 
-// ── Today ──
-function renderTodayTab(){
-  const sel=document.getElementById('sel-rest');
-  sel.innerHTML='<option value="">── 請選擇餐廳 ──</option>'+
-    rests.map(r=>`<option value="${r.id}"${daily?.restId===r.id?' selected':''}>${esc(r.name)}</option>`).join('');
-  if(daily?.deadline)document.getElementById('sel-deadline').value=daily.deadline;
-  const nw=document.getElementById('no-rest-warn');
-  nw.style.display=rests.length===0?'block':'none';
-  const ok=document.getElementById('daily-ok');
-  const todayRest=rests.find(r=>r.id===daily?.restId);
-  if(daily&&todayRest){
-    ok.style.display='block';
-    document.getElementById('daily-ok-txt').textContent=`✅ 今日餐廳：${todayRest.name}　截止 ${daily.deadline}`;
-  }else{ok.style.display='none'}
+// ── 今日設定 ──
+function renderTodayTab() {
+  const sel = document.getElementById('sel-rest');
+  const rList = Object.values(allRests);
+  sel.innerHTML = '<option value="">── 請選擇餐廳 ──</option>' +
+    rList.map(r=>`<option value="${r.id}"${todayDaily?.restId===r.id?' selected':''}>${esc(r.name)}</option>`).join('');
+  if (todayDaily?.deadline) document.getElementById('sel-deadline').value = todayDaily.deadline;
+  document.getElementById('no-rest-warn').style.display = rList.length===0?'block':'none';
+  const ok = document.getElementById('daily-ok');
+  const todayRest = allRests[todayDaily?.restId];
+  if (todayDaily && todayRest) {
+    ok.style.display = 'block';
+    document.getElementById('daily-ok-txt').textContent = `✅ 今日餐廳：${todayRest.name}　截止 ${todayDaily.deadline}`;
+  } else { ok.style.display = 'none'; }
 }
 
-function saveDaily(){
-  const restId=document.getElementById('sel-rest').value;
-  if(!restId){alert('請選擇今日餐廳');return}
-  daily={restId,deadline:document.getElementById('sel-deadline').value};
-  sv(`lo3-daily-${TODAY}`,daily);
+async function saveDaily() {
+  const restId = document.getElementById('sel-rest').value;
+  if (!restId) { alert('請選擇今日餐廳'); return; }
+  const deadline = document.getElementById('sel-deadline').value;
+  const dateKey = TODAY.replace(/\//g,'-');
+  showLoading();
+  await dbSet(`daily/${dateKey}`, { restId, deadline });
+  todayDaily = { restId, deadline };
+  hideLoading();
   renderTodayTab();
   alert('✅ 今日設定已儲存！');
 }
 
-// ── Restaurants ──
-function renderRestList(){
-  document.getElementById('rest-list-view').style.display='block';
-  document.getElementById('rest-edit-view').style.display='none';
-  const el=document.getElementById('rest-list-inner');
-  if(!rests.length){el.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 0;font-size:14px">尚未建立任何餐廳</div>';return}
-  el.innerHTML=rests.map(r=>`
+// ── 餐廳管理 ──
+function renderRestList() {
+  document.getElementById('rest-list-view').style.display = 'block';
+  document.getElementById('rest-edit-view').style.display = 'none';
+  const el = document.getElementById('rest-list-inner');
+  const rList = Object.values(allRests);
+  if (!rList.length) { el.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 0;font-size:14px">尚未建立任何餐廳</div>'; return; }
+  el.innerHTML = rList.map(r=>`
     <div class="rc">
       <div>
         <div style="font-weight:700;font-size:15px">${esc(r.name)}</div>
@@ -607,56 +641,55 @@ function renderRestList(){
     </div>`).join('');
 }
 
-function openNewRest(){
-  editRestId=null;editItems=[];editImgB64=null;
+function openNewRest() {
+  editRestId=null; editItems=[]; editImgB64=null;
   document.getElementById('rest-edit-title').textContent='新增餐廳';
   document.getElementById('rest-name').value='';
   document.getElementById('rest-img-file').value='';
-  renderRestImgBox();
-  renderEditItems();
+  renderRestImgBox(); renderEditItems();
   document.getElementById('rest-list-view').style.display='none';
   document.getElementById('rest-edit-view').style.display='block';
   window.scrollTo(0,0);
   setTimeout(()=>document.getElementById('rest-name').focus(),100);
 }
 
-function openEditRest(id){
-  const r=rests.find(x=>x.id===id);if(!r)return;
-  editRestId=id;editItems=[...(r.items||[])];
-  const saved=localStorage.getItem(`lo3-img-${id}`);
-  editImgB64=saved||null;
+async function openEditRest(id) {
+  const r = allRests[id]; if (!r) return;
+  editRestId=id; editItems=[...(r.items||[])];
+  showLoading();
+  const saved = await dbGet(`images/${id}`);
+  editImgB64 = saved||null;
+  hideLoading();
   document.getElementById('rest-edit-title').textContent='編輯餐廳';
   document.getElementById('rest-name').value=r.name;
   document.getElementById('rest-img-file').value='';
-  renderRestImgBox();
-  renderEditItems();
+  renderRestImgBox(); renderEditItems();
   document.getElementById('rest-list-view').style.display='none';
   document.getElementById('rest-edit-view').style.display='block';
   window.scrollTo(0,0);
 }
 
-function closeRestEdit(){
+function closeRestEdit() {
   document.getElementById('rest-list-view').style.display='block';
   document.getElementById('rest-edit-view').style.display='none';
-  renderRestList();
-  window.scrollTo(0,0);
+  renderRestList(); window.scrollTo(0,0);
 }
 
-function handleRestImg(e){
-  const f=e.target.files[0];if(!f)return;
+function handleRestImg(e) {
+  const f=e.target.files[0]; if(!f) return;
   const reader=new FileReader();
-  reader.onload=ev=>{editImgB64=ev.target.result;renderRestImgBox()};
+  reader.onload=ev=>{ editImgB64=ev.target.result; renderRestImgBox(); };
   reader.readAsDataURL(f);
 }
 
-function renderRestImgBox(){
+function renderRestImgBox() {
   const box=document.getElementById('rest-img-box');
-  if(editImgB64){
+  if (editImgB64) {
     box.innerHTML=`<div style="position:relative;margin-top:8px">
       <img src="${editImgB64}" style="width:100%;border-radius:14px;max-height:320px;object-fit:contain;background:#F5F3F0;display:block">
       <button onclick="removeRestImg()" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:var(--font)">✕ 移除</button>
     </div>`;
-  }else{
+  } else {
     box.innerHTML=`<div class="upbox" style="padding:20px">
       <div style="font-size:36px;margin-bottom:10px">📷</div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
@@ -667,134 +700,34 @@ function renderRestImgBox(){
     </div>`;
   }
 }
+function removeRestImg() { editImgB64=null; renderRestImgBox(); document.getElementById('ai-result-box').style.display='none'; }
 
-function removeRestImg(){editImgB64=null;renderRestImgBox();document.getElementById('ai-result-box').style.display='none'}
-
-// ── AI 掃描菜單 ──
-let aiPendingItems=[];
-function toggleApiKeyVis(){
-  const inp=document.getElementById('ai-api-key');
-  const btn=document.getElementById('ai-key-vis-btn');
-  if(inp.type==='password'){inp.type='text';btn.textContent='隱藏'}
-  else{inp.type='password';btn.textContent='顯示'}
-}
-async function aiScanMenu(){
-  if(!editImgB64){alert('請先上傳菜單圖片！');return}
-  const apiKey=(document.getElementById('ai-api-key').value||'').trim();
-  if(!apiKey){alert('請先輸入 Gemini API Key！\n\n到 https://aistudio.google.com/app/apikey 免費取得');document.getElementById('ai-api-key').focus();return}
-  // 顯示掃描中狀態
-  document.getElementById('ai-scan-btn').disabled=true;
-  document.getElementById('ai-scanning').style.display='block';
-  document.getElementById('ai-result-box').style.display='none';
-  // 進度條動畫
-  let prog=0;
-  const bar=document.getElementById('ai-progress-bar');
-  const timer=setInterval(()=>{prog=Math.min(prog+Math.random()*8,88);bar.style.width=prog+'%'},300);
-  try{
-    const b64=editImgB64.split(',')[1];
-    const mType=editImgB64.split(';')[0].split(':')[1];
-    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        contents:[{parts:[
-          {inline_data:{mime_type:mType,data:b64}},
-          {text:`請仔細看這張餐廳菜單圖片，把所有可以點的「品項名稱」和「價格」整理出來。
-只回傳 JSON 格式，格式如下，不要有任何其他文字：
-{"items":[{"name":"品項名稱","price":數字},{"name":"品項名稱","price":數字}]}
-價格只填數字（整數），如果看不到價格就填 0。
-品項名稱用繁體中文。
-不要包含「飯」「湯麵」「撈麵」這種主食類別標題，只要具體品項。`}
-        ]}]
-      })
-    });
-    clearInterval(timer);bar.style.width='100%';
-    if(!resp.ok){
-      const errData=await resp.json().catch(()=>({}));
-      const msg=errData?.error?.message||'未知錯誤';
-      const status=resp.status;
-      throw new Error(`[${status}] ${msg}`);
-    }
-    const data=await resp.json();
-    // Gemini 回應格式：data.candidates[0].content.parts[0].text
-    const txt=data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
-    // 清理可能的 markdown fences
-    const clean=txt.replace(/```json|```/g,'').trim();
-    const parsed=JSON.parse(clean);
-    aiPendingItems=parsed.items||[];
-    // 顯示結果
-    const resultEl=document.getElementById('ai-result-items');
-    if(!aiPendingItems.length){
-      resultEl.innerHTML='<div style="color:var(--muted);font-size:14px;text-align:center;padding:12px 0">未能識別出品項，請手動輸入</div>';
-    }else{
-      resultEl.innerHTML=aiPendingItems.map((it,i)=>`
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #DDD6FE">
-          <input value="${esc(it.name)}" onchange="aiPendingItems[${i}].name=this.value"
-            style="flex:2;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
-          <input value="${it.price}" type="number" onchange="aiPendingItems[${i}].price=+this.value"
-            style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
-          <button onclick="aiPendingItems.splice(${i},1);renderAiResults()"
-            style="background:none;border:none;color:#EF4444;font-size:18px;cursor:pointer;line-height:1">×</button>
-        </div>`).join('');
-    }
-    document.getElementById('ai-result-box').style.display='block';
-  }catch(e){
-    clearInterval(timer);
-    alert('AI 掃描失敗：'+e.message+'\n\n請手動輸入品項');
-  }finally{
-    document.getElementById('ai-scanning').style.display='none';
-    document.getElementById('ai-scan-btn').disabled=false;
-    setTimeout(()=>{bar.style.width='0%'},500);
-  }
-}
-
-function renderAiResults(){
-  const resultEl=document.getElementById('ai-result-items');
-  if(!aiPendingItems.length){
-    resultEl.innerHTML='<div style="color:var(--muted);font-size:14px;text-align:center;padding:12px 0">未能識別出品項</div>';return;
-  }
-  resultEl.innerHTML=aiPendingItems.map((it,i)=>`
-    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #DDD6FE">
-      <input value="${esc(it.name)}" onchange="aiPendingItems[${i}].name=this.value"
-        style="flex:2;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
-      <input value="${it.price}" type="number" onchange="aiPendingItems[${i}].price=+this.value"
-        style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
-      <button onclick="aiPendingItems.splice(${i},1);renderAiResults()"
-        style="background:none;border:none;color:#EF4444;font-size:18px;cursor:pointer;line-height:1">×</button>
-    </div>`).join('');
-}
-
-function applyAiItems(){
-  aiPendingItems.forEach(it=>{
-    if(it.name.trim())editItems.push({id:UID(),name:it.name.trim(),price:it.price||0});
-  });
-  aiPendingItems=[];
-  document.getElementById('ai-result-box').style.display='none';
-  renderEditItems();
-  alert(`✅ 已加入 ${editItems.length} 個品項！`);
-}
-
-function saveRest(){
+async function saveRest() {
   const name=document.getElementById('rest-name').value.trim();
-  if(!name){alert('請輸入餐廳名稱');return}
+  if (!name) { alert('請輸入餐廳名稱'); return; }
   const rid=editRestId||UID();
-  const rest={id:rid,name,items:editItems};
-  if(editRestId){rests=rests.map(r=>r.id===rid?rest:r)}
-  else{rests=[...rests,rest]}
-  sv('lo3-rests',rests);
-  if(editImgB64)localStorage.setItem(`lo3-img-${rid}`,editImgB64);
+  showLoading();
+  await dbSet(`rests/${rid}`, { id:rid, name, items:editItems });
+  if (editImgB64) await dbSet(`images/${rid}`, editImgB64);
+  await loadRests();
+  hideLoading();
   closeRestEdit();
   alert('✅ 餐廳已儲存！');
 }
 
-function delRest(id){
-  if(!confirm('確定刪除此餐廳？'))return;
-  rests=rests.filter(r=>r.id!==id);sv('lo3-rests',rests);renderRestList();
+async function delRest(id) {
+  if (!confirm('確定刪除此餐廳？')) return;
+  showLoading();
+  await dbRemove(`rests/${id}`);
+  await dbRemove(`images/${id}`);
+  await loadRests();
+  hideLoading();
+  renderRestList();
 }
 
-function addItem(){
+function addItem() {
   const name=document.getElementById('item-name').value.trim();
-  if(!name){alert('請輸入品項名稱');return}
+  if (!name) { alert('請輸入品項名稱'); return; }
   const price=parseFloat(document.getElementById('item-price').value)||0;
   editItems=[...editItems,{id:UID(),name,price}];
   document.getElementById('item-name').value='';
@@ -802,12 +735,10 @@ function addItem(){
   renderEditItems();
   document.getElementById('item-name').focus();
 }
-
-function delItem(id){editItems=editItems.filter(i=>i.id!==id);renderEditItems()}
-
-function renderEditItems(){
+function delItem(id) { editItems=editItems.filter(i=>i.id!==id); renderEditItems(); }
+function renderEditItems() {
   const el=document.getElementById('items-list');
-  if(!editItems.length){el.innerHTML='<div style="text-align:center;color:var(--muted);font-size:13px;padding:16px 0">尚無品項</div>';return}
+  if (!editItems.length) { el.innerHTML='<div style="text-align:center;color:var(--muted);font-size:13px;padding:16px 0">尚無品項</div>'; return; }
   el.innerHTML=editItems.map((item,i)=>`
     <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;${i<editItems.length-1?'border-bottom:1px solid var(--border)':''}">
       <div>
@@ -818,120 +749,162 @@ function renderEditItems(){
     </div>`).join('');
 }
 
-// ── Accounts ──
-function renderAccounts(){
+// ── AI 掃描 ──
+let aiPendingItems=[];
+function toggleApiKeyVis() {
+  const inp=document.getElementById('ai-api-key');
+  const btn=document.getElementById('ai-key-vis-btn');
+  if(inp.type==='password'){inp.type='text';btn.textContent='隱藏'} else {inp.type='password';btn.textContent='顯示'}
+}
+async function aiScanMenu() {
+  if(!editImgB64){alert('請先上傳菜單圖片！');return}
+  const apiKey=(document.getElementById('ai-api-key').value||'').trim();
+  if(!apiKey){alert('請先輸入 Gemini API Key！\n\n到 https://aistudio.google.com/app/apikey 免費取得');document.getElementById('ai-api-key').focus();return}
+  document.getElementById('ai-scan-btn').disabled=true;
+  document.getElementById('ai-scanning').style.display='block';
+  document.getElementById('ai-result-box').style.display='none';
+  let prog=0; const bar=document.getElementById('ai-progress-bar');
+  const timer=setInterval(()=>{prog=Math.min(prog+Math.random()*8,88);bar.style.width=prog+'%'},300);
+  try {
+    const b64=editImgB64.split(',')[1];
+    const mType=editImgB64.split(';')[0].split(':')[1];
+    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[
+        {inline_data:{mime_type:mType,data:b64}},
+        {text:`請仔細看這張餐廳菜單圖片，把所有可以點的「品項名稱」和「價格」整理出來。\n只回傳 JSON 格式，格式如下，不要有任何其他文字：\n{"items":[{"name":"品項名稱","price":數字}]}\n價格只填數字（整數），如果看不到價格就填 0。品項名稱用繁體中文。`}
+      ]}]})
+    });
+    clearInterval(timer); bar.style.width='100%';
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(`[${resp.status}] ${e?.error?.message||'未知錯誤'}`);}
+    const data=await resp.json();
+    const txt=data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';
+    const clean=txt.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    aiPendingItems=parsed.items||[];
+    const resultEl=document.getElementById('ai-result-items');
+    if(!aiPendingItems.length){resultEl.innerHTML='<div style="color:var(--muted);font-size:14px;text-align:center;padding:12px 0">未能識別出品項，請手動輸入</div>';}
+    else{resultEl.innerHTML=aiPendingItems.map((it,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #DDD6FE">
+        <input value="${esc(it.name)}" onchange="aiPendingItems[${i}].name=this.value" style="flex:2;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
+        <input value="${it.price}" type="number" onchange="aiPendingItems[${i}].price=+this.value" style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
+        <button onclick="aiPendingItems.splice(${i},1);renderAiResults()" style="background:none;border:none;color:#EF4444;font-size:18px;cursor:pointer;line-height:1">×</button>
+      </div>`).join('');}
+    document.getElementById('ai-result-box').style.display='block';
+  } catch(e) {
+    clearInterval(timer); alert('AI 掃描失敗：'+e.message+'\n\n請手動輸入品項');
+  } finally {
+    document.getElementById('ai-scanning').style.display='none';
+    document.getElementById('ai-scan-btn').disabled=false;
+    setTimeout(()=>{bar.style.width='0%'},500);
+  }
+}
+function renderAiResults() {
+  const resultEl=document.getElementById('ai-result-items');
+  if(!aiPendingItems.length){resultEl.innerHTML='<div style="color:var(--muted);font-size:14px;text-align:center;padding:12px 0">未能識別出品項</div>';return;}
+  resultEl.innerHTML=aiPendingItems.map((it,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #DDD6FE">
+      <input value="${esc(it.name)}" onchange="aiPendingItems[${i}].name=this.value" style="flex:2;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
+      <input value="${it.price}" type="number" onchange="aiPendingItems[${i}].price=+this.value" style="flex:1;padding:7px 12px;border-radius:8px;border:1px solid #C4B5FD;font-size:14px;font-family:var(--font);outline:none;background:#fff">
+      <button onclick="aiPendingItems.splice(${i},1);renderAiResults()" style="background:none;border:none;color:#EF4444;font-size:18px;cursor:pointer;line-height:1">×</button>
+    </div>`).join('');
+}
+function applyAiItems() {
+  aiPendingItems.forEach(it=>{ if(it.name.trim()) editItems.push({id:UID(),name:it.name.trim(),price:it.price||0}); });
+  aiPendingItems=[]; document.getElementById('ai-result-box').style.display='none';
+  renderEditItems(); alert(`✅ 已加入 ${editItems.length} 個品項！`);
+}
+
+// ── 帳號管理 ──
+async function renderAccounts() {
+  await loadUsers();
   const el=document.getElementById('accounts-list');
-  el.innerHTML=users.map((u,i)=>`
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;${i<users.length-1?'border-bottom:1px solid var(--border)':''}">
+  const uList=Object.values(allUsers);
+  el.innerHTML=uList.map((u,i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;${i<uList.length-1?'border-bottom:1px solid var(--border)':''}">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="font-weight:600">${esc(u.username)}</span>
-        <span style="font-size:11px;background:${u.role==='admin'?'var(--p)':'#E8E4DF'};color:${u.role==='admin'?'#fff':'var(--muted)'};border-radius:10px;padding:2px 10px;font-weight:700">
-          ${u.role==='admin'?'管理員':'員工'}
-        </span>
+        <span style="font-size:11px;background:${u.role==='admin'?'var(--p)':'#E8E4DF'};color:${u.role==='admin'?'#fff':'var(--muted)'};border-radius:10px;padding:2px 10px;font-weight:700">${u.role==='admin'?'管理員':'員工'}</span>
       </div>
       ${u.id!==me?.id?`<button onclick="delUser('${u.id}')" style="background:none;border:1px solid var(--danger);color:var(--danger);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:12px;font-family:var(--font)">刪除</button>`:'<span style="font-size:12px;color:var(--muted)">（我）</span>'}
     </div>`).join('');
 }
-
-function addAccount(){
+async function addAccount() {
   const u=document.getElementById('na-user').value.trim();
   const p=document.getElementById('na-pass').value;
   const role=document.getElementById('na-role').value;
   if(!u||!p){alert('帳號與密碼不可空白');return}
-  if(users.find(x=>x.username===u)){alert('此帳號已存在');return}
-  users=[...users,{id:UID(),username:u,password:p,role}];
-  sv('lo3-users',users);
+  showLoading(); await loadUsers();
+  if(Object.values(allUsers).find(x=>x.username===u)){hideLoading();alert('此帳號已存在');return}
+  const id=UID();
+  await dbSet(`users/${id}`,{id,username:u,password:p,role});
+  await loadUsers(); hideLoading();
   document.getElementById('na-user').value='';
   document.getElementById('na-pass').value='';
-  renderAccounts();
-  alert('✅ 帳號已新增！');
+  renderAccounts(); alert('✅ 帳號已新增！');
 }
-
-function delUser(id){
+async function delUser(id) {
   if(!confirm('確定刪除此帳號？'))return;
-  users=users.filter(u=>u.id!==id);sv('lo3-users',users);renderAccounts();
+  showLoading(); await dbRemove(`users/${id}`); await loadUsers(); hideLoading(); renderAccounts();
 }
 
-// ── Orders ──
-function renderOrders(){
-  orders=ld(`lo3-orders-${TODAY}`,[]);
+// ── 訂單統計 ──
+async function renderOrdersTab() {
+  await loadOrders();
+  const orders=Object.values(todayOrders);
   document.getElementById('order-count-badge').textContent=`${orders.length} 人`;
-
-  // Item totals
   const totals={};
   orders.forEach(o=>o.items.forEach(i=>{
     if(!totals[i.name])totals[i.name]={qty:0,rev:0,up:i.price};
-    totals[i.name].qty+=i.qty;totals[i.name].rev+=i.price*i.qty;
+    totals[i.name].qty+=i.qty; totals[i.name].rev+=i.price*i.qty;
   }));
   const grandTotal=Object.values(totals).reduce((s,v)=>s+v.rev,0);
   const statsEl=document.getElementById('order-item-stats');
   const keys=Object.keys(totals).sort((a,b)=>totals[b].qty-totals[a].qty);
-  if(!keys.length){statsEl.innerHTML='<div style="text-align:center;color:var(--muted);font-size:14px;padding:24px 0">尚無訂單</div>'}
-  else{
-    statsEl.innerHTML=keys.map(name=>`
-      <div class="sr">
-        <span style="font-weight:600">${esc(name)}</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          ${totals[name].rev>0?`<span style="color:var(--muted);font-size:12px">小計 $${totals[name].rev}</span>`:''}
-          <span class="tag tag-pl" style="font-size:15px;padding:4px 14px">× ${totals[name].qty}</span>
-        </div>
-      </div>`).join('')+
-    (grandTotal>0?`<div style="display:flex;justify-content:space-between;padding-top:14px;font-weight:900;font-size:16px"><span>總金額</span><span style="color:var(--p)">$${grandTotal}</span></div>`:'');
-  }
+  if(!keys.length){statsEl.innerHTML='<div style="text-align:center;color:var(--muted);font-size:14px;padding:24px 0">尚無訂單</div>';}
+  else{statsEl.innerHTML=keys.map(name=>`
+    <div class="sr">
+      <span style="font-weight:600">${esc(name)}</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        ${totals[name].rev>0?`<span style="color:var(--muted);font-size:12px">小計 $${totals[name].rev}</span>`:''}
+        <span class="tag tag-pl" style="font-size:15px;padding:4px 14px">× ${totals[name].qty}</span>
+      </div>
+    </div>`).join('')+
+    (grandTotal>0?`<div style="display:flex;justify-content:space-between;padding-top:14px;font-weight:900;font-size:16px"><span>總金額</span><span style="color:var(--p)">$${grandTotal}</span></div>`:'');}
 
-  // Personal
   const pEl=document.getElementById('order-personal');
-  if(!orders.length){pEl.innerHTML='<div style="text-align:center;color:var(--muted);font-size:14px;padding:20px 0">尚無訂單</div>'}
-  else{
-    pEl.innerHTML=orders.map((o,oi)=>{
-      const tot=o.items.reduce((s,i)=>s+i.price*i.qty,0);
-      const t=new Date(o.ts).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
-      return `<div class="ob">
-        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-          <span style="font-weight:700;font-size:15px">👤 ${esc(o.username)}</span>
-          <span style="font-size:12px;color:var(--muted)">${t}</span>
-        </div>
-        ${o.items.map(i=>`<div style="display:flex;justify-content:space-between;font-size:14px;padding:3px 0"><span>${esc(i.name)} × ${i.qty}</span>${i.price>0?`<span style="color:var(--muted)">$${i.price*i.qty}</span>`:''}</div>`).join('')}
-        ${tot>0?`<div style="text-align:right;margin-top:6px"><span style="font-size:13px;font-weight:700;color:var(--p)">小計 $${tot}</span></div>`:''}
-      </div>`;
-    }).join('');
-  }
+  if(!orders.length){pEl.innerHTML='<div style="text-align:center;color:var(--muted);font-size:14px;padding:20px 0">尚無訂單</div>';}
+  else{pEl.innerHTML=orders.map(o=>{
+    const tot=o.items.reduce((s,i)=>s+i.price*i.qty,0);
+    const t=new Date(o.ts).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+    return `<div class="ob">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-weight:700;font-size:15px">👤 ${esc(o.username)}</span>
+        <span style="font-size:12px;color:var(--muted)">${t}</span>
+      </div>
+      ${o.items.map(i=>`<div style="display:flex;justify-content:space-between;font-size:14px;padding:3px 0"><span>${esc(i.name)} × ${i.qty}</span>${i.price>0?`<span style="color:var(--muted)">$${i.price*i.qty}</span>`:''}</div>`).join('')}
+      ${tot>0?`<div style="text-align:right;margin-top:6px"><span style="font-size:13px;font-weight:700;color:var(--p)">小計 $${tot}</span></div>`:''}
+    </div>`;}).join('');}
   document.getElementById('export-btn').style.display=orders.length?'block':'none';
 }
 
-// ── Export ──
-function exportOrders(){
-  orders=ld(`lo3-orders-${TODAY}`,[]);
-  const todayRest=rests.find(r=>r.id===daily?.restId);
+function exportOrders() {
+  const orders=Object.values(todayOrders);
+  const todayRest=allRests[todayDaily?.restId];
   const totals={};
   orders.forEach(o=>o.items.forEach(i=>{
     if(!totals[i.name])totals[i.name]={qty:0,rev:0,up:i.price};
-    totals[i.name].qty+=i.qty;totals[i.name].rev+=i.price*i.qty;
+    totals[i.name].qty+=i.qty; totals[i.name].rev+=i.price*i.qty;
   }));
   const grandTotal=Object.values(totals).reduce((s,v)=>s+v.rev,0);
   const keys=Object.keys(totals).sort((a,b)=>totals[b].qty-totals[a].qty);
   const html=`<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8">
 <title>洋美點餐 訂單 ${TODAY}</title>
-<style>
-*{box-sizing:border-box}
-body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;max-width:860px;margin:0 auto;padding:32px;color:#1A1714;font-size:15px}
-h1{color:#D4500A;font-size:26px;margin-bottom:6px}
-.meta{color:#7A6F68;font-size:14px;margin-bottom:32px}
-h2{font-size:18px;color:#2C3E50;border-bottom:2px solid #E8E2DC;padding-bottom:8px;margin:32px 0 16px}
-table{width:100%;border-collapse:collapse;margin-bottom:8px}
-th{background:#FFF0E8;color:#D4500A;padding:12px 16px;text-align:left;font-weight:700;border-bottom:2px solid #FCDBB8}
-td{padding:12px 16px;border-bottom:1px solid #EEE9E4}
-.r{text-align:right}.b{font-weight:700}
-.hi{background:#FFF0E8;font-weight:700}
-.big{font-size:18px;color:#D4500A;font-weight:900}
-.badge{display:inline-block;background:#D4500A;color:#fff;border-radius:12px;padding:3px 14px;font-size:14px;font-weight:700}
-.print-btn{background:#D4500A;color:#fff;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:700;font-family:inherit;margin-bottom:32px}
-@media print{.print-btn{display:none}body{padding:16px}}
-</style></head><body>
+<style>*{box-sizing:border-box}body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;max-width:860px;margin:0 auto;padding:32px;color:#1A1714;font-size:15px}h1{color:#D4500A;font-size:26px;margin-bottom:6px}.meta{color:#7A6F68;font-size:14px;margin-bottom:32px}h2{font-size:18px;color:#2C3E50;border-bottom:2px solid #E8E2DC;padding-bottom:8px;margin:32px 0 16px}table{width:100%;border-collapse:collapse;margin-bottom:8px}th{background:#FFF0E8;color:#D4500A;padding:12px 16px;text-align:left;font-weight:700;border-bottom:2px solid #FCDBB8}td{padding:12px 16px;border-bottom:1px solid #EEE9E4}.r{text-align:right}.b{font-weight:700}.hi{background:#FFF0E8;font-weight:700}.big{font-size:18px;color:#D4500A;font-weight:900}.badge{display:inline-block;background:#D4500A;color:#fff;border-radius:12px;padding:3px 14px;font-size:14px;font-weight:700}.print-btn{background:#D4500A;color:#fff;border:none;padding:12px 32px;border-radius:10px;font-size:15px;cursor:pointer;font-weight:700;font-family:inherit;margin-bottom:32px}@media print{.print-btn{display:none}body{padding:16px}}</style></head><body>
 <h1>🍱 洋美點餐 訂單彙整</h1>
-<div class="meta">📅 日期：${TODAY}　　🏪 餐廳：${todayRest?.name||'未知'}　　👥 共 ${orders.length} 人點餐</div>
+<div class="meta">📅 ${TODAY}　🏪 ${todayRest?.name||'未知'}　👥 共 ${orders.length} 人點餐</div>
 <button class="print-btn" onclick="window.print()">🖨️ 列印 / 儲存為 PDF</button>
-<h2>📋 彙整明細 <span style="font-size:13px;color:#7A6F68;font-weight:400">（用於向餐廳下單）</span></h2>
+<h2>📋 彙整明細</h2>
 <table><thead><tr><th>品項名稱</th><th class="r">單價</th><th class="r">總數量</th><th class="r">小計金額</th></tr></thead><tbody>
 ${keys.map(name=>`<tr><td class="b">${name}</td><td class="r">${totals[name].up>0?'$'+totals[name].up:'-'}</td><td class="r"><span class="badge">${totals[name].qty}</span></td><td class="r b">${totals[name].rev>0?'$'+totals[name].rev:'-'}</td></tr>`).join('')}
 ${grandTotal>0?`<tr class="hi"><td colspan="3" class="r">合計總金額</td><td class="r big">$${grandTotal}</td></tr>`:''}
@@ -940,16 +913,25 @@ ${grandTotal>0?`<tr class="hi"><td colspan="3" class="r">合計總金額</td><td
 <table><thead><tr><th>姓名</th><th>點餐內容</th><th class="r">個人金額</th></tr></thead><tbody>
 ${orders.map(o=>{const tot=o.items.reduce((s,i)=>s+i.price*i.qty,0);return`<tr><td class="b">${o.username}</td><td>${o.items.map(i=>`${i.name} ×${i.qty}`).join('、')}</td><td class="r">${tot>0?'$'+tot:'-'}</td></tr>`}).join('')}
 ${grandTotal>0?`<tr class="hi"><td colspan="2" class="r">合計</td><td class="r big">$${grandTotal}</td></tr>`:''}
-</tbody></table>
-</body></html>`;
-  const w=window.open('','_blank');w.document.write(html);w.document.close();
+</tbody></table></body></html>`;
+  const w=window.open('','_blank'); w.document.write(html); w.document.close();
 }
 
-// ══════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════
-showPage('pg-login');
-setTimeout(()=>document.getElementById('l-user').focus(),100);
+// ── 暴露到全域 ──
+window.doLogin=doLogin; window.doRegister=doRegister; window.logout=logout;
+window.showReg=showReg; window.showPage=showPage; window.goTab=goTab;
+window.saveDaily=saveDaily; window.openNewRest=openNewRest; window.openEditRest=openEditRest;
+window.closeRestEdit=closeRestEdit; window.saveRest=saveRest; window.delRest=delRest;
+window.handleRestImg=handleRestImg; window.removeRestImg=removeRestImg;
+window.addItem=addItem; window.delItem=delItem;
+window.addAccount=addAccount; window.delUser=delUser;
+window.submitOrder=submitOrder; window.chgCart=chgCart;
+window.exportOrders=exportOrders; window.renderAccounts=renderAccounts;
+window.aiScanMenu=aiScanMenu; window.toggleApiKeyVis=toggleApiKeyVis;
+window.applyAiItems=applyAiItems; window.renderAiResults=renderAiResults;
+
+// 啟動
+init();
 </script>
 </body>
 </html>
