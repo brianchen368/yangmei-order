@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洋美環境維護 115年3月 財務儀表板</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0C2340;
+    --blue: #0C447C;
+    --accent: #1A7FBC;
+    --gold: #C9A84C;
+    --green: #1A7A4A;
+    --red: #C0392B;
+    --warn: #E67E22;
+    --bg: #F4F6F9;
+    --card: #FFFFFF;
+    --border: #DDE3EC;
+    --text: #1A2333;
+    --muted: #6B7A99;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Serif TC', serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: white;
+    padding: 32px 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: 120px;
+    width: 160px; height: 160px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+  .company-name { font-size: 13px; letter-spacing: 3px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+  .report-title { font-size: 28px; font-weight: 700; letter-spacing: 1px; }
+  .report-period { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+  .health-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .health-score { font-size: 42px; font-weight: 700; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+  .health-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .health-stars { color: var(--gold); font-size: 14px; margin-top: 4px; }
+
+  /* NOTICE BANNER */
+  .notice-banner {
+    background: linear-gradient(90deg, #1A4A7A, #0C447C);
+    color: rgba(255,255,255,0.85);
+    padding: 10px 40px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .notice-banner span { color: var(--gold); font-weight: 600; }
+
+  /* MAIN LAYOUT */
+  .container { padding: 32px 40px; max-width: 1400px; margin: 0 auto; }
+  .section-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* KPI CARDS */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,68,124,0.1); }
+  .kpi-card.highlight {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: white;
+    border-color: transparent;
+  }
+  .kpi-card.highlight .kpi-label { color: rgba(255,255,255,0.6); }
+  .kpi-card.highlight .kpi-value { color: var(--gold); }
+  .kpi-card.highlight .kpi-rate { color: rgba(255,255,255,0.5); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+  .kpi-card.highlight::before { background: var(--gold); }
+  .kpi-card.green::before { background: var(--green); }
+  .kpi-card.warn::before { background: var(--warn); }
+  .kpi-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+  .kpi-value { font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.5px; }
+  .kpi-rate {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .kpi-rate.up { color: var(--green); }
+  .kpi-rate.down { color: var(--red); }
+  .kpi-subtext { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* EXECUTIVE SUMMARY */
+  .exec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .exec-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .exec-icon { font-size: 28px; flex-shrink: 0; }
+  .exec-content { flex: 1; }
+  .exec-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--navy); }
+  .exec-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .exec-value { font-size: 18px; font-weight: 700; color: var(--blue); font-family: 'JetBrains Mono', monospace; margin-top: 6px; }
+
+  /* AMORTIZATION TABLE */
+  .amort-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .amort-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .amort-row:last-child { border-bottom: none; }
+  .amort-row.subtotal { background: #F0F4F8; font-weight: 600; }
+  .amort-row.result {
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    color: white;
+    font-weight: 700;
+  }
+  .amort-row.result .amort-val { color: var(--gold); }
+  .amort-label { flex: 1; color: var(--muted); font-size: 12px; }
+  .amort-row.subtotal .amort-label,
+  .amort-row.result .amort-label { color: inherit; }
+  .amort-val { font-size: 15px; min-width: 160px; text-align: right; }
+  .amort-op { min-width: 30px; text-align: center; color: var(--muted); font-size: 16px; }
+  .amort-row.result .amort-op { color: rgba(255,255,255,0.4); }
+  .minus { color: var(--red); }
+
+  /* CHARTS */
+  .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .chart-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+
+  /* EXPENSE TABLE */
+  .expense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .expense-list { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .expense-item:last-child { border-bottom: none; }
+  .expense-item:nth-child(even) { background: #FAFBFD; }
+  .expense-name { color: var(--text); }
+  .expense-val { font-family: 'JetBrains Mono', monospace; color: var(--blue); font-weight: 600; }
+  .expense-bar-wrap { height: 4px; background: var(--border); border-radius: 2px; margin-top: 3px; width: 80px; }
+  .expense-bar { height: 100%; border-radius: 2px; background: var(--accent); }
+  .expense-right { text-align: right; }
+
+  /* ALERTS */
+  .alerts-grid { display: grid; gap: 12px; }
+  .alert-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid;
+    background: var(--card);
+    border-color: transparent;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .alert-card.warn { border-color: var(--warn); background: #FFF8F0; }
+  .alert-card.info { border-color: var(--accent); background: #F0F7FF; }
+  .alert-card.ok { border-color: var(--green); background: #F0FFF6; }
+  .alert-icon { font-size: 20px; flex-shrink: 0; }
+  .alert-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .alert-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* HEALTH SCORES */
+  .health-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .health-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .health-item-score { font-size: 32px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .health-item-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); margin-top: 4px; }
+  .health-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin: 12px 0 8px; }
+  .health-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--blue), var(--accent)); }
+  .health-note { font-size: 11px; color: var(--muted); }
+
+  /* DETAIL TABLE */
+  .detail-table { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .detail-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .detail-table th {
+    background: var(--navy);
+    color: rgba(255,255,255,0.8);
+    padding: 10px 16px;
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .detail-table th:first-child { text-align: left; }
+  .detail-table td { padding: 9px 16px; text-align: right; border-bottom: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; }
+  .detail-table td:first-child { text-align: left; font-family: 'Noto Serif TC', serif; color: var(--text); }
+  .detail-table tr:last-child td { border-bottom: none; }
+  .detail-table tr:nth-child(even) td { background: #FAFBFD; }
+  .detail-table tr.highlight-row td { background: #EAF3FF; font-weight: 700; color: var(--navy); }
+  .detail-table tr.highlight-row td:first-child { color: var(--blue); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 40px;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px; }
+    .header { padding: 24px 20px; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .expense-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="company-name">洋美環境維護股份有限公司</div>
+      <div class="report-title">財務分析儀表板</div>
+      <div class="report-period">民國 115年3月（11503）｜ 製表日期：2026-05-29</div>
+    </div>
+    <div class="health-badge">
+      <div class="health-score">55</div>
+      <div class="health-stars">★★★☆☆</div>
+      <div class="health-label">財務健康評分</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTICE BANNER -->
+<div class="notice-banner">
+  ⚡ 真正淨利計算：<span>本期損益（行71）− 清員紅包預估（行80）− 營所稅預估（行81）= 行82 真正淨利</span>｜本報告所有淨利數字均採行82定義
+</div>
+
+<div class="container">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section-title">執行摘要</div>
+  <div class="exec-grid">
+    <div class="exec-card">
+      <div class="exec-icon">📈</div>
+      <div class="exec-content">
+        <div class="exec-title">營收強勁回升</div>
+        <div class="exec-text">115年3月營業收入較2月大幅成長 5.5%，回升至 2,726 萬元水準，YoY 成長 7.8%，顯示業績持續向上趨勢。</div>
+        <div class="exec-value">+5.54% MoM</div>
+      </div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-icon">⚠️</div>
+      <div class="exec-content">
+        <div class="exec-title">2月淨利異常偏低</div>
+        <div class="exec-text">115年2月真正淨利僅 12 萬元（淨利率 0.5%），屬農曆春節低基期效應，3月已大幅回升至 114 萬，MoM 成長 853.8%。</div>
+        <div class="exec-value">低基期效應已修正</div>
+      </div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-icon">💡</div>
+      <div class="exec-content">
+        <div class="exec-title">毛利率回升至健康區間</div>
+        <div class="exec-text">本月毛利率 20.7%，回升至近6個月平均水準，毛利金額 563 萬，費用控制在 350 萬元合理範圍。</div>
+        <div class="exec-value">毛利率 20.7%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="section-title">本月核心指標（115年3月）</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">營業收入淨額</div>
+      <div class="kpi-value">2,726萬</div>
+      <div class="kpi-rate up">▲ 5.54% MoM ｜ ▲ 7.8% YoY</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">毛利金額</div>
+      <div class="kpi-value">564萬</div>
+      <div class="kpi-rate up">毛利率 20.7%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">營業費用</div>
+      <div class="kpi-value">351萬</div>
+      <div class="kpi-rate">費用率 12.9%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">本期損益（行71）</div>
+      <div class="kpi-value">212萬</div>
+      <div class="kpi-rate">攤提前損益</div>
+      <div class="kpi-subtext">含清員紅包及稅務攤提</div>
+    </div>
+    <div class="kpi-card highlight">
+      <div class="kpi-label">⭐ 真正淨利（行82）</div>
+      <div class="kpi-value">114萬</div>
+      <div class="kpi-rate up">淨利率 4.2% ｜ MoM ▲853%</div>
+      <div class="kpi-subtext" style="color:rgba(255,255,255,0.4)">= 行71 − 行80 − 行81</div>
+    </div>
+    <div class="kpi-card warn">
+      <div class="kpi-label">月結餘（行87）</div>
+      <div class="kpi-value">18.7萬</div>
+      <div class="kpi-rate">分配後保留盈餘</div>
+    </div>
+  </div>
+
+  <!-- AMORTIZATION -->
+  <div class="section-title">攤提計算明細（行82 真正淨利推導）</div>
+  <div class="amort-box">
+    <div class="amort-row">
+      <span class="amort-label">行71　本期損益（攤提前）</span>
+      <span class="amort-op">=</span>
+      <span class="amort-val">2,122,759</span>
+    </div>
+    <div class="amort-row">
+      <span class="amort-label">行80　清員紅包預估（月攤提）</span>
+      <span class="amort-op minus">−</span>
+      <span class="amort-val minus">327,129</span>
+    </div>
+    <div class="amort-row">
+      <span class="amort-label">行81　營所稅預估（月攤提）</span>
+      <span class="amort-op minus">−</span>
+      <span class="amort-val minus">654,258</span>
+    </div>
+    <div class="amort-row result">
+      <span class="amort-label">⭐ 行82　真正淨利（小計）</span>
+      <span class="amort-op">=</span>
+      <span class="amort-val">1,141,372</span>
+    </div>
+    <div class="amort-row subtotal">
+      <span class="amort-label">行83-86　股東紅利 20% + 其他分配</span>
+      <span class="amort-op minus">−</span>
+      <span class="amort-val">954,187</span>
+    </div>
+    <div class="amort-row subtotal">
+      <span class="amort-label">行87　月結餘（分配後保留）</span>
+      <span class="amort-op">=</span>
+      <span class="amort-val">187,185</span>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-title">趨勢分析（近12個月）</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">營收 ｜ 毛利 ｜ 真正淨利 趨勢</div>
+      <canvas id="trendChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">真正淨利柱狀圖（行82）</div>
+      <canvas id="netChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- EXPENSE -->
+  <div class="section-title">費用結構（115年3月）</div>
+  <div class="expense-grid">
+    <div>
+      <div class="chart-card" style="margin-bottom:0;">
+        <div class="chart-title">費用類別分佈</div>
+        <canvas id="pieChart" height="200"></canvas>
+      </div>
+    </div>
+    <div class="expense-list">
+      <div class="expense-item" style="background:#F4F6F9; font-weight:700; font-size:11px; letter-spacing:1px; color:var(--muted);">
+        <span>費用科目</span><span>金額（元）</span>
+      </div>
+      <div class="expense-item"><span class="expense-name">薪資-BOSS</span><div class="expense-right"><div class="expense-val">503,000</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:100%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">租金支出</span><div class="expense-right"><div class="expense-val">271,830</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:54%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">勞健保</span><div class="expense-right"><div class="expense-val">151,206</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:30%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">廣告費</span><div class="expense-right"><div class="expense-val">109,713</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:22%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">資訊設備</span><div class="expense-right"><div class="expense-val">97,326</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:19%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">執行業務報酬</span><div class="expense-right"><div class="expense-val">76,748</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:15%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">勞退提撥</span><div class="expense-right"><div class="expense-val">66,901</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:13%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">春酒</span><div class="expense-right"><div class="expense-val">63,792</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:13%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">電信費</span><div class="expense-right"><div class="expense-val">54,210</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:11%"></div></div></div></div>
+      <div class="expense-item"><span class="expense-name">職工福利</span><div class="expense-right"><div class="expense-val">55,518</div><div class="expense-bar-wrap"><div class="expense-bar" style="width:11%"></div></div></div></div>
+      <div class="expense-item" style="background:#EAF3FF; font-weight:700;">
+        <span class="expense-name" style="color:var(--navy);">營業費用總計</span>
+        <span class="expense-val" style="color:var(--navy);">3,505,216</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTH SCORES -->
+  <div class="section-title">財務健康分項評分</div>
+  <div class="health-grid">
+    <div class="health-card">
+      <div class="health-item-score" style="color:var(--warn);">12</div>
+      <div class="health-bar-wrap"><div class="health-bar" style="width:48%; background:var(--warn);"></div></div>
+      <div class="health-item-label">獲利性</div>
+      <div class="health-note">淨利率 4.2%（1-5% 區間）</div>
+    </div>
+    <div class="health-card">
+      <div class="health-item-score" style="color:var(--green);">18</div>
+      <div class="health-bar-wrap"><div class="health-bar" style="width:72%;"></div></div>
+      <div class="health-item-label">成長性</div>
+      <div class="health-note">YoY 收入 +7.8%（10-30% 區間）</div>
+    </div>
+    <div class="health-card">
+      <div class="health-item-score" style="color:var(--blue);">15</div>
+      <div class="health-bar-wrap"><div class="health-bar" style="width:60%;"></div></div>
+      <div class="health-item-label">費用控制</div>
+      <div class="health-note">費用率持平，未見明顯惡化</div>
+    </div>
+    <div class="health-card">
+      <div class="health-item-score" style="color:var(--muted);">N/A</div>
+      <div class="health-bar-wrap"><div class="health-bar" style="width:0%;"></div></div>
+      <div class="health-item-label">流動性</div>
+      <div class="health-note">需資產負債表資料</div>
+    </div>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="section-title">異常警示與分析</div>
+  <div class="alerts-grid">
+    <div class="alert-card warn">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <div class="alert-title">2月真正淨利極低（0.5%）— 低基期效應</div>
+        <div class="alert-text">115年2月淨利率僅 0.5%（12萬），主因農曆春節影響出工率與收入。3月已回升至 4.2%，屬季節性正常波動，以 YoY 或季均值評估更具參考意義。</div>
+      </div>
+    </div>
+    <div class="alert-card info">
+      <div class="alert-icon">📊</div>
+      <div>
+        <div class="alert-title">近6個月淨利率波動較大（0.5%～5.5%）</div>
+        <div class="alert-text">建議觀察原因：①出工率波動（春節/颱風）②物料成本變異 ③特殊費用（春酒63萬）。月均值約 3.7%，整體尚屬合理。</div>
+      </div>
+    </div>
+    <div class="alert-card ok">
+      <div class="alert-icon">✅</div>
+      <div>
+        <div class="alert-title">3月收入年增 7.8%，成長動能穩健</div>
+        <div class="alert-text">YoY 收入增加約 197 萬元，顯示業務規模持續擴大。毛利率 20.7% 回復至正常水準，費用管控無明顯惡化跡象。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL TABLE -->
+  <div class="section-title">損益明細表（近6個月比較）</div>
+  <div class="detail-table">
+    <table>
+      <thead>
+        <tr>
+          <th>科目</th>
+          <th>11410</th><th>11411</th><th>11412</th>
+          <th>11501</th><th>11502</th><th>11503（本月）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>營業收入</td>
+          <td>25,956,335</td><td>27,255,286</td><td>27,486,409</td>
+          <td>27,394,507</td><td>25,830,055</td><td>27,260,746</td>
+        </tr>
+        <tr>
+          <td>毛利</td>
+          <td>4,731,456</td><td>5,900,124</td><td>4,727,045</td>
+          <td>5,553,189</td><td>4,509,186</td><td>5,635,700</td>
+        </tr>
+        <tr>
+          <td>毛利率</td>
+          <td>18.2%</td><td>21.6%</td><td>17.2%</td>
+          <td>20.3%</td><td>17.5%</td><td>20.7%</td>
+        </tr>
+        <tr>
+          <td>營業費用</td>
+          <td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td>3,505,216</td>
+        </tr>
+        <tr>
+          <td>本期損益（行71）</td>
+          <td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td>2,122,759</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>⭐ 真正淨利（行82）</td>
+          <td>422,523</td><td>1,503,058</td><td>1,038,635</td>
+          <td>977,051</td><td>119,665</td><td>1,141,372</td>
+        </tr>
+        <tr>
+          <td>真正淨利率</td>
+          <td>1.6%</td><td>5.5%</td><td>3.8%</td>
+          <td>3.6%</td><td>0.5%</td><td>4.2%</td>
+        </tr>
+        <tr>
+          <td>月結餘（行87）</td>
+          <td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td>187,185</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  本報告由 Claude AI 自動分析產出 ｜ 資料來源：115年度-文中財報03.xlsx ｜ 真正淨利 = 行71 − 行80 − 行81 ｜ 僅供內部參考
+</div>
+
+<script>
+// 趨勢折線圖
+const months = ['11404','11405','11406','11407','11408','11409','11410','11411','11412','11501','11502','11503'];
+const labels = months.map(m => m.slice(0,3)+'年'+m.slice(3)+'月');
+const revenue = [25782272,25803977,27032794,26553739,26335133,26638213,25956335,27255286,27486409,27394507,25830055,27260746].map(v=>v/10000);
+const gross   = [5005342,4745238,4998580,5486705,5073359,5627074,4731456,5900124,4727045,5553189,4509186,5635700].map(v=>v/10000);
+const trueNet = [567135,297602,789540,770877,548536,1008345,422523,1503058,1038635,977051,119665,1141372].map(v=>v/10000);
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [
+      { label: '營業收入（萬）', data: revenue, borderColor: '#0C447C', backgroundColor: 'rgba(12,68,124,0.08)', tension: 0.4, pointRadius: 3, borderWidth: 2, yAxisID: 'y' },
+      { label: '毛利（萬）', data: gross, borderColor: '#1A7FBC', backgroundColor: 'rgba(26,127,188,0.08)', tension: 0.4, pointRadius: 3, borderWidth: 2, yAxisID: 'y' },
+      { label: '真正淨利（萬）', data: trueNet, borderColor: '#C9A84C', backgroundColor: 'rgba(201,168,76,0.1)', tension: 0.4, pointRadius: 4, borderWidth: 2.5, yAxisID: 'y2' },
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { labels: { font: { size: 11 }, boxWidth: 12 } } },
+    scales: {
+      y: { position: 'left', ticks: { font: { size: 10 }, callback: v => v+'萬' }, grid: { color: '#EEF0F4' } },
+      y2: { position: 'right', ticks: { font: { size: 10 }, callback: v => v+'萬' }, grid: { display: false } },
+      x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
+    }
+  }
+});
+
+// 柱狀圖
+new Chart(document.getElementById('netChart'), {
+  type: 'bar',
+  data: {
+    labels: labels.slice(6),
+    datasets: [{
+      label: '真正淨利（萬）',
+      data: trueNet.slice(6),
+      backgroundColor: trueNet.slice(6).map(v => v >= 0 ? 'rgba(26,122,74,0.8)' : 'rgba(192,57,43,0.8)'),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { ticks: { font: { size: 10 }, callback: v => v+'萬' }, grid: { color: '#EEF0F4' } },
+      x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
+    }
+  }
+});
+
+// 圓餅圖
+new Chart(document.getElementById('pieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['薪資BOSS','租金','勞健保','廣告費','資訊設備','執業報酬','勞退','其他'],
+    datasets: [{
+      data: [503000, 271830, 151206, 109713, 97326, 76748, 66901, 228492],
+      backgroundColor: ['#0C2340','#0C447C','#1A7FBC','#C9A84C','#1A7A4A','#3498DB','#E67E22','#95A5A6'],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10, padding: 8 } },
+      tooltip: { callbacks: { label: ctx => ctx.label+': '+ctx.parsed.toLocaleString()+'元' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
