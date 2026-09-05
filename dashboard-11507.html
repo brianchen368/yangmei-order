@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洋美環境維護 · 115年7月財報儀表板（勾稽版）</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--navy:#0C447C;--navy2:#1560A8;--gray:#F4F6F9;--line:#E2E8F0;--green:#128A5B;--red:#D0342C;--amber:#C77700;--txt:#1A2433;--sub:#64748B;--gold:#C9A84C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC","Microsoft JhengHei",-apple-system,sans-serif;background:var(--gray);color:var(--txt);line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 60px}
+header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:26px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;box-shadow:0 6px 20px rgba(12,68,124,.25)}
+header.top h1{font-size:24px;font-weight:800;letter-spacing:.5px}
+header.top .period{font-size:15px;opacity:.9;margin-top:4px}
+.score{text-align:center;background:rgba(255,255,255,.14);border-radius:14px;padding:12px 20px;min-width:130px}
+.score .num{font-size:34px;font-weight:800;line-height:1}
+.score .lbl{font-size:12px;opacity:.9;margin-top:4px}
+.banner{background:#FFF7E6;border:1px solid #F0D9A8;color:#7A5200;border-radius:12px;padding:12px 18px;margin:18px 0;font-size:14px}
+.banner b{color:#8A4B00}
+h2.sec{font-size:18px;color:var(--navy);margin:30px 0 14px;padding-left:12px;border-left:5px solid var(--navy)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+.card .t{font-size:13px;color:var(--sub);font-weight:600}
+.card .v{font-size:25px;font-weight:800;margin:6px 0 2px}
+.card .d{font-size:13px;font-weight:600}
+.card.hi{border:2px solid var(--green);background:#F2FBF6}
+.up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--sub)}
+.exec{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.exec .e{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-top:4px solid var(--navy)}
+.exec .e h3{font-size:15px;color:var(--navy);margin-bottom:6px}
+.exec .e p{font-size:14px;color:#334155}
+.exec .e.warn{border-top-color:var(--red)}
+.recon{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}
+.rc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-left:4px solid var(--amber)}
+.rc.bad{border-left-color:var(--red);background:#FFF9F8}
+.rc h4{font-size:15px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.rc .flag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:#FCE8E6;color:var(--red)}
+.rc table{width:100%;font-size:13px;margin-top:4px;box-shadow:none;border-radius:0}
+.rc td{padding:4px 0;border-bottom:1px dashed var(--line);text-align:right}
+.rc td:first-child{text-align:left;color:var(--sub)}
+.rc .concl{font-size:13px;margin-top:8px;color:#334155}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.04);font-size:14px}
+th,td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--navy);color:#fff;font-weight:600}
+tbody tr:nth-child(even){background:#FAFBFC}
+tr.rowhi{background:#EAF7F0!important;font-weight:700}
+tr.rowhi td{color:var(--green)}
+tr.sub td{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chartbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+.chartbox h3{font-size:15px;color:var(--navy);margin-bottom:10px}
+.alert{background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 0;overflow:hidden}
+.alert .a{display:flex;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);align-items:flex-start}
+.alert .a:last-child{border-bottom:none}
+.badge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;margin-top:2px}
+.b-red{background:#FCE8E6;color:var(--red)}.b-amb{background:#FDF0DA;color:var(--amber)}.b-grn{background:#E6F6EE;color:var(--green)}
+.alert .a .txt{font-size:14px}
+.alert .a .txt b{color:var(--txt)}
+.src{font-size:12px;color:var(--sub);margin-top:3px}
+.hscore{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.hs{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.hs .t{font-size:14px;font-weight:600;color:var(--navy)}
+.hs .bar{height:10px;background:#EEF2F7;border-radius:6px;margin:10px 0 6px;overflow:hidden}
+.hs .bar span{display:block;height:100%;border-radius:6px}
+.hs .n{font-size:13px;color:var(--sub)}
+.foot{text-align:center;color:var(--sub);font-size:12px;margin-top:36px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+<div>
+<h1>洋美環境維護股份有限公司</h1>
+<div class="period">財務分析儀表板 · 報告期間 115年7月（11507）· 資料來源：115年度-文中財報07.xlsx</div>
+</div>
+<div class="score"><div class="num">81</div><div class="lbl">財務健康評分 / 100</div></div>
+</header>
+
+<div class="banner">
+★ <b>真正淨利</b> = 本期損益 − 清員紅包預估 − 營所稅預估（Excel 損益表總表 <b>行82</b>）。本儀表板所有數字均取自原始損益表，結論皆附來源科目與差額，未經資料佐證之推測一律標註。
+</div>
+
+<h2 class="sec">Executive Summary · 三大重點</h2>
+<div class="exec">
+<div class="e"><h3>① 營收創近 13 個月新高</h3><p>7月營收淨額 <b>2,933.8 萬</b>，MoM +5.09%（+142.2萬）、YoY +10.48%（+278.4萬）。銷貨收入 +135.6萬、銷貨折讓由 6.7萬降至 693 元，本業動能明顯轉強。</p></div>
+<div class="e"><h3>② 真正淨利 214.3 萬，三個月來最佳</h3><p>真正淨利 MoM <b>+255.5%</b>（60.3萬→214.3萬）、YoY +178.0%。營收增 142.2萬的同時營業成本反減 40.8萬，毛利率 18.3%→<b>23.7%</b>。★ 注意 6月為低基期（特休、機動工資偏高），但 YoY 同步大增，成長為真。</p></div>
+<div class="e"><h3>③ 機動組貢獻翻倍，費用小幅上升</h3><p>機動組營收 +57.5萬（+38.9%），貢獻 67.3萬→<b>120.9萬</b>。營業費用 +13.6萬（+3.79%）：執行業務報酬 +4.7萬、廣告費 +3.8萬、交通費 +3.2萬；費用率仍降至 12.72%。</p></div>
+</div>
+
+<h2 class="sec">關鍵指標（KPI）</h2>
+<div class="cards">
+<div class="card"><div class="t">營業收入淨額</div><div class="v">29,337,584</div><div class="d"><span class="up">▲ MoM +5.09%</span> · <span class="up">YoY +10.48%</span></div></div>
+<div class="card"><div class="t">營業毛利 / 毛利率</div><div class="v">6,943,444</div><div class="d">毛利率 23.67% · <span class="up">▲ MoM +35.78%</span></div></div>
+<div class="card"><div class="t">營業費用 / 費用率</div><div class="v">3,730,504</div><div class="d">費用率 12.72% · <span class="down">▲ MoM +3.79%</span></div></div>
+<div class="card"><div class="t">本期損益（行71）</div><div class="v">3,199,375</div><div class="d"><span class="up">▲ MoM +98.99%</span> · <span class="up">YoY +69.60%</span></div></div>
+<div class="card hi"><div class="t">★ 真正淨利（行82）</div><div class="v" style="color:var(--green)">2,143,222</div><div class="d"><span class="up">▲ MoM +255.54%</span> · <span class="up">YoY +178.02%</span></div></div>
+<div class="card"><div class="t">真正淨利率</div><div class="v">7.31%</div><div class="d">上月 2.16% · 去年 2.90%</div></div>
+</div>
+
+<h2 class="sec">連動勾稽（數字之間的關聯分析）</h2>
+<div class="recon">
+<div class="rc" style="border-left-color:var(--green)">
+<h4>A. 機動組收入 vs 獎金 <span class="flag" style="background:#E6F6EE;color:var(--green)">✓ 同向合理</span></h4>
+<table>
+<tr><td>機動組營收</td><td>1,478,301 → 2,053,610</td><td class="up">+38.9%</td></tr>
+<tr><td>機動-薪資</td><td>675,550 → 687,388</td><td class="flat">+1.8%</td></tr>
+<tr><td>機動-獎金</td><td>130,167 → 157,265</td><td class="up">+20.8%</td></tr>
+<tr class="rowhi" style="font-weight:700"><td>機動組貢獻</td><td>672,584 → 1,208,957</td><td class="up">+79.7%</td></tr>
+</table>
+<p class="concl"><b>收入增 57.5萬、獎金增 2.7萬</b>，貢獻增 53.6萬，6月「收入跌、獎金反增」的脫鉤現象已修正。<br><span class="src">＊機動組只對機動薪資＋機動獎金，不含含居家之「機動工資」。</span></p>
+</div>
+
+<div class="rc" style="border-left-color:var(--green)">
+<h4>B. 清員薪資 vs 營收 <span class="flag" style="background:#E6F6EE;color:var(--green)">✓ 效率改善</span></h4>
+<table>
+<tr><td>營業收入淨額</td><td>+1,421,684</td><td class="up">+5.09%</td></tr>
+<tr><td>薪資支出-清員</td><td>+365,068</td><td class="flat">+2.23%</td></tr>
+</table>
+<p class="concl">營收增幅 <b>5.09% &gt; 清員薪資 2.23%</b>；清員薪資占營收比 58.7%→<b>57.1%</b>。每一元營收的人力成本下降，是本月毛利率跳升的主因之一。</p>
+</div>
+
+<div class="rc">
+<h4>C. 獎金 vs 當月獲利 <span class="flag" style="background:#E6F6EE;color:var(--green)">✓ 方向一致</span></h4>
+<table>
+<tr><td>本業毛利</td><td>+1,829,554</td><td class="up">+35.8%</td></tr>
+<tr><td>機動-獎金</td><td>+27,098</td><td class="up">+20.8%</td></tr>
+<tr><td>薪資-獎金（內勤）</td><td>−5,228</td><td class="flat">−0.7%</td></tr>
+</table>
+<p class="concl">毛利大增的同月，機動獎金隨收入上升、內勤獎金持平，獎金與獲利方向一致。<br><span class="src">＊提醒：內勤獎金近 5 個月穩定在 62–70萬，與毛利波動無明顯連動，可留意其計算口徑。</span></p>
+</div>
+</div>
+
+<h2 class="sec">真正淨利變動歸因（6月 60.3萬 → 7月 214.3萬，+154.0萬）</h2>
+<table>
+<thead><tr><th>來源</th><th>差額（元）</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td>營業收入淨額 ↑（行7）</td><td class="up">+1,421,684</td><td>銷貨收入 +135.6萬、折讓 −6.6萬</td></tr>
+<tr><td>營業成本 ↓（行34）</td><td class="up">+407,870</td><td>特休 −32.6萬、機動工資 −28.6萬、物料 −20.3萬，抵銷清員薪資 +36.5萬</td></tr>
+<tr><td>營業費用 ↑（行62）</td><td class="down">−136,160</td><td>執行業務報酬、廣告、交通、訓練費</td></tr>
+<tr><td>業外損益 ↓（行78）</td><td class="down">−101,802</td><td>6月有 9.0萬股息入帳，7月無</td></tr>
+<tr class="rowhi"><td>＝ 本期損益變動（行71）</td><td>+1,591,592</td><td>1,607,783 → 3,199,375</td></tr>
+<tr class="sub"><td>− 清員紅包預估增加（行80）</td><td>−17,060</td><td>隨清員薪資攤提</td></tr>
+<tr class="sub"><td>− 營所稅預估增加（行81）</td><td>−34,120</td><td></td></tr>
+<tr class="rowhi"><td>＝ 真正淨利變動（行82）★</td><td>+1,540,412</td><td>602,810 → 2,143,222</td></tr>
+</tbody>
+</table>
+
+<h2 class="sec">攤提計算明細（行71 → 行82 → 月結餘）</h2>
+<table>
+<thead><tr><th>項目</th><th>金額（元）</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td>本期損益（行71）</td><td>3,199,375</td><td>攤提前，非真正淨利</td></tr>
+<tr class="sub"><td>− 清員紅包預估（行80）</td><td>−352,051</td><td>員工紅包月攤提</td></tr>
+<tr class="sub"><td>− 營所稅預估（行81）</td><td>−704,102</td><td>所得稅月攤提</td></tr>
+<tr class="rowhi"><td>＝ 真正淨利（行82）★</td><td>2,143,222</td><td>本月實質獲利（已驗算：3,199,375 − 352,051 − 704,102 ✓）</td></tr>
+<tr class="sub"><td>− 股東紅利 20%（行83）</td><td>−1,285,933</td><td></td></tr>
+<tr class="sub"><td>− 6% 其他（行84）</td><td>−128,593</td><td></td></tr>
+<tr class="sub"><td>− 15% 內勤年終獎金（行85）</td><td>−321,483</td><td></td></tr>
+<tr class="sub"><td>− 2.6% 行政獎金（行86）</td><td>−55,724</td><td></td></tr>
+<tr class="rowhi"><td>＝ 月結餘（行87）</td><td>351,488</td><td>分配後保留盈餘，近 6 月最高</td></tr>
+</tbody>
+</table>
+
+<h2 class="sec">趨勢與結構圖</h2>
+<div class="grid2">
+<div class="chartbox"><h3>近6個月損益趨勢（營收 / 本期損益 / 真正淨利）</h3><canvas id="trend"></canvas></div>
+<div class="chartbox"><h3>機動組：營收 vs 人力（薪資+獎金）與貢獻</h3><canvas id="mobile"></canvas></div>
+</div>
+<div class="grid2" style="margin-top:18px">
+<div class="chartbox"><h3>7月營業費用結構</h3><canvas id="pie"></canvas></div>
+<div class="chartbox"><h3>成本變動排行（7月 vs 6月，前6大，紅增綠減）</h3><canvas id="cost"></canvas></div>
+</div>
+
+<h2 class="sec">財務健康分項評分</h2>
+<div class="hscore">
+<div class="hs"><div class="t">獲利性</div><div class="bar"><span style="width:72%;background:var(--navy2)"></span></div><div class="n">18 / 25 · 真正淨利率 7.31%（5–10% 區間）</div></div>
+<div class="hs"><div class="t">成長性</div><div class="bar"><span style="width:72%;background:var(--navy2)"></span></div><div class="n">18 / 25 · YoY 營收 +10.48%（10–30% 區間）</div></div>
+<div class="hs"><div class="t">費用控制</div><div class="bar"><span style="width:100%;background:var(--green)"></span></div><div class="n">25 / 25 · 費用率 12.72%，較上月 12.88% 改善</div></div>
+<div class="hs"><div class="t">流動性</div><div class="bar"><span style="width:0%"></span></div><div class="n">N/A · 需資產負債表資料</div></div>
+</div>
+
+<h2 class="sec">異常警示面板</h2>
+<div class="alert">
+<div class="a"><span class="badge b-grn">✓ 正向</span><div class="txt"><b>真正淨利 MoM +255.5%</b>（60.3萬→214.3萬）、YoY +178.0%。營收 +142.2萬且營業成本 −40.8萬，毛利 +183.0萬。<div class="src">來源：營收淨額(行7)、營業成本(行34)、營業毛利(行35)、真正淨利(行82)</div></div></div>
+<div class="a"><span class="badge b-amb">▲ 注意</span><div class="txt"><b>6月低基期效應</b>：6月特休 52.9萬、機動工資 47.9萬屬季節性偏高，7月回落合計 −61.2萬，超過本月營業成本淨減額 40.8萬，即扣除季節因素後成本其實仍小增。判讀 MoM 時請以 YoY（+178%）為主。<div class="src">來源：清員-特休費用(行33)、機動工資(行13)</div></div></div>
+<div class="a"><span class="badge b-grn">✓ 正向</span><div class="txt"><b>機動組貢獻 +79.7%</b>（67.3萬→120.9萬）：營收 +38.9%，獎金 +20.8% 同向且幅度較小，6月脫鉤警訊已解除。<div class="src">來源：機動組營收(行5)、機動薪資(行16)、機動獎金(行17)</div></div></div>
+<div class="a"><span class="badge b-amb">▲ 注意</span><div class="txt"><b>清員薪資 +36.5萬（+2.23%）</b>，為本月唯一大額成本增項，YoY +7.47% 高於營收 YoY。人力規模擴大需持續對照營收成長。<div class="src">來源：薪資支出-清員(行15)</div></div></div>
+<div class="a"><span class="badge b-amb">▲ 注意</span><div class="txt"><b>營業費用 +13.6萬（+3.79%）</b>：執行業務報酬 +4.7萬（雙月性）、廣告費 +3.8萬、交通費 +3.2萬、訓練費 +1.7萬。廣告費 24.8萬為近 13 個月最高，請對照本月詢問／成交量。<div class="src">來源：行59 / 行48 / 行29 / 行53</div></div></div>
+<div class="a"><span class="badge b-amb">▲ 注意</span><div class="txt"><b>業外收入 −10.3萬</b>：6月有 9.0萬股息紅利屬一次性，7月回到正常水準（0.5萬），非營運面問題。<div class="src">來源：非營業收入總額(行66)</div></div></div>
+</div>
+
+<h2 class="sec">完整損益明細（近6月，真正淨利行82綠色高亮）</h2>
+<div style="overflow-x:auto">
+<table>
+<thead><tr><th>科目</th><th>11502</th><th>11503</th><th>11504</th><th>11505</th><th>11506</th><th>11507</th></tr></thead>
+<tbody>
+<tr><td>營業收入淨額</td><td>25,830,055</td><td>27,260,746</td><td>27,229,907</td><td>27,754,739</td><td>27,915,900</td><td>29,337,584</td></tr>
+<tr><td>營業成本</td><td>21,320,869</td><td>21,625,047</td><td>22,122,952</td><td>21,675,853</td><td>22,802,010</td><td>22,394,140</td></tr>
+<tr><td>營業毛利</td><td>4,509,186</td><td>5,635,700</td><td>5,106,956</td><td>6,078,887</td><td>5,113,890</td><td>6,943,444</td></tr>
+<tr><td>營業費用總額</td><td>3,464,911</td><td>3,505,216</td><td>3,513,704</td><td>3,571,252</td><td>3,594,344</td><td>3,730,504</td></tr>
+<tr><td>本期損益（行71）</td><td>1,049,547</td><td>2,122,759</td><td>1,862,580</td><td>2,491,396</td><td>1,607,783</td><td>3,199,375</td></tr>
+<tr class="rowhi"><td>真正淨利（行82）</td><td>119,665</td><td>1,141,372</td><td>882,303</td><td>1,492,225</td><td>602,810</td><td>2,143,222</td></tr>
+<tr><td>機動組營收（行5）</td><td>1,574,405</td><td>1,603,609</td><td>1,309,762</td><td>1,787,236</td><td>1,478,301</td><td>2,053,610</td></tr>
+<tr><td>月結餘（行87）</td><td>19,625</td><td>187,185</td><td>144,698</td><td>244,725</td><td>98,861</td><td>351,488</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="foot">洋美環境維護 · 115年7月財報自動分析儀表板（勾稽版）· 產出日期 2026-09-04 · 數值單位：新台幣元</div>
+</div>
+
+<script>
+const NF=n=>n.toLocaleString('en-US');
+const months=['11502','11503','11504','11505','11506','11507'];
+const rev=[25830055,27260746,27229907,27754739,27915900,29337584];
+const pre=[1049547,2122758,1862580,2491396,1607783,3199375];
+const net=[119665,1141372,882303,1492225,602810,2143222];
+const mzr=[1574405,1603609,1309762,1787236,1478301,2053610];
+const mlab=[839342,875780,859312,782581,805717,844653];
+const mcon=[735063,727829,450450,1004655,672584,1208957];
+Chart.defaults.font.family='"Noto Sans TC","Microsoft JhengHei",sans-serif';
+
+new Chart(trend,{type:'line',data:{labels:months,datasets:[
+{label:'營收淨額',data:rev,borderColor:'#0C447C',backgroundColor:'rgba(12,68,124,.08)',tension:.3,yAxisID:'y1',fill:true},
+{label:'本期損益(行71)',data:pre,borderColor:'#C77700',tension:.3,yAxisID:'y'},
+{label:'真正淨利(行82)',data:net,borderColor:'#128A5B',borderWidth:3,tension:.3,yAxisID:'y'}
+]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{
+y:{position:'left',title:{display:true,text:'損益'},ticks:{callback:v=>(v/1e6).toFixed(1)+'M'}},
+y1:{position:'right',title:{display:true,text:'營收'},grid:{drawOnChartArea:false},ticks:{callback:v=>(v/1e6).toFixed(0)+'M'}}}}});
+
+new Chart(mobile,{data:{labels:months,datasets:[
+{type:'bar',label:'機動組營收',data:mzr,backgroundColor:'#5DADE2'},
+{type:'bar',label:'機動人力(薪資+獎金)',data:mlab,backgroundColor:'#E59B36'},
+{type:'line',label:'機動組貢獻',data:mcon,borderColor:'#128A5B',borderWidth:3,tension:.3}
+]},options:{responsive:true,plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.dataset.label+'：'+NF(c.raw)+' 元'}}},scales:{y:{ticks:{callback:v=>(v/1e6).toFixed(1)+'M'}}}}});
+
+new Chart(pie,{type:'doughnut',data:{labels:['薪資支出','薪資-獎金','薪資-BOSS','租金支出','廣告費','勞健保','資訊設備','其他'],
+datasets:[{data:[1191318,699107,503000,274430,247762,151651,108245,554991],
+backgroundColor:['#0C447C','#1560A8','#2E86C1','#5DADE2','#C77700','#E59B36','#128A5B','#B4BEC9']}]},
+options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},
+tooltip:{callbacks:{label:c=>c.label+'：'+NF(c.raw)+' 元'}}}}});
+
+new Chart(cost,{type:'bar',data:{labels:['清員薪資','清員特休費用','機動工資','物料進料','勞健保自付額-清員','清員-勞健保'],
+datasets:[{label:'7月 vs 6月 差額',data:[365068,-325752,-286379,-202824,-75030,50630],
+backgroundColor:['#D0342C','#128A5B','#128A5B','#128A5B','#128A5B','#D0342C']}]},
+options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},
+tooltip:{callbacks:{label:c=>(c.raw>0?'+':'')+NF(c.raw)+' 元'}}},scales:{x:{ticks:{callback:v=>(v/1e3).toFixed(0)+'K'}}}}});
+</script>
+</body>
+</html>
